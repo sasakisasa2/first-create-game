@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{47974e81-ff42-4d0c-8227-fa99f8c69fd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{29c1d6e3-875e-4d01-a01d-0974e170e5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{d7d56ad3-60f4-40ad-b499-8133f5f75990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\DX">
+      <UniqueIdentifier>{57861352-b6ac-419f-9d1f-561d5941eabd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Gamepad">
+      <UniqueIdentifier>{dd2f8020-b24e-404b-ba9d-a2f2061ada4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Gamepad\Toolkit">
+      <UniqueIdentifier>{df0d2a90-74be-4d38-a257-3fe37d2e7015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Gamepad\Toolkit\Classes">
+      <UniqueIdentifier>{5b729ab2-fd93-43af-a0b2-0d150540bba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{9e34b234-4a43-4436-9bf2-742a1d035744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Player">
+      <UniqueIdentifier>{27efd54e-a479-43aa-9a39-a758ab19c785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Player\PlayerMovement">
+      <UniqueIdentifier>{569dc183-2e38-4b33-83ab-ee5c1bdd500b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Player\BulletAttack">
+      <UniqueIdentifier>{575dc5e0-b7e8-4e60-8282-c50fffd03172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Player\PlayerColider">
+      <UniqueIdentifier>{4fbd997c-c34a-4966-a9fb-0683e4e2e861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AttackBit">
+      <UniqueIdentifier>{472be488-47cf-471a-944b-a0dc2aca1e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AttackBit\BitAttack">
+      <UniqueIdentifier>{7dfc021d-e27e-4c65-aaf8-2080c8540660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AttackBit\BitMove">
+      <UniqueIdentifier>{5bb8536f-86aa-4704-9849-a320eb8f63f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AttackBit\BitManager">
+      <UniqueIdentifier>{843c2573-690c-4cea-8ee3-0a852037a8ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy">
+      <UniqueIdentifier>{af94fc34-7e00-428a-b116-8ebfc7105111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Plant">
+      <UniqueIdentifier>{5140b939-55c9-4fac-8999-fda9f1fcafe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Plant\PlantSpawn">
+      <UniqueIdentifier>{1537b1b1-90f7-4b72-b8dd-5b67ff8b045f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Plant\PlantManager">
+      <UniqueIdentifier>{af3b63b6-200f-4786-8f69-6196b34bc6c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Plant\PlantAttack">
+      <UniqueIdentifier>{86138ca7-32c0-4674-869a-8600e8fc11e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ConvenienceFeature">
+      <UniqueIdentifier>{db3ff6fb-c9c3-4765-952c-a17c7b0a2c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Plant\PlantAnimation">
+      <UniqueIdentifier>{54ee842e-0572-4371-887a-93b1b067d896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Boss">
+      <UniqueIdentifier>{e849499a-c0e9-4566-bb5e-4ea6e5ce5a5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Boss\BossManager">
+      <UniqueIdentifier>{fa99c471-dd1e-492b-82a1-d47f746160ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Boss\BossAttack">
+      <UniqueIdentifier>{b821f5ad-b901-45ba-8fba-a22763aed3b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Enemy\Boss\BossMove">
+      <UniqueIdentifier>{6fbd73bb-7f89-4121-a62b-2519225c3ea0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Base\pch.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\GameBase.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\StepTimer.h">
+      <Filter>Base\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\d3dx12.h">
+      <Filter>Base\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\DontDestroyOnLoad.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\MainScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SceneFactory.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\dxtk.h">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\CommonInclude.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiColor.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiGamepad.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiInput.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiMath.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiPlatform.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiRawGamepad.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiVector.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\wiGamepad\wiXInput.h">
+      <Filter>Base\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Toolkits\DXTKCamera.h">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Toolkits\DXTKHelpers.h">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Toolkits\DXTKMathematics.h">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Toolkits\InputSystem.h">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\titl.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\result.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SecondScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Classes\Player\Movement\Move.h">
+      <Filter>Classes\Player\PlayerMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Player\BulletAttack\BlueBullet.h">
+      <Filter>Classes\Player\BulletAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Player\Player.h">
+      <Filter>Classes\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SampleClass.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Player\PlayerManager.h">
+      <Filter>Classes\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Player\PlayerColider\PlayerColider.h">
+      <Filter>Classes\Player\PlayerColider</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AttackBit\AttackBit.h">
+      <Filter>Classes\AttackBit</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AttackBit\BitAttack\BitAttack.h">
+      <Filter>Classes\AttackBit\BitAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AttackBit\BitMove\BitMove.h">
+      <Filter>Classes\AttackBit\BitMove</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AttackBit\BitManager\BitManager.h">
+      <Filter>Classes\AttackBit\BitManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Plant\Plant.h">
+      <Filter>Classes\Enemy\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Plant\PlantSpawn\PlantSpawn.h">
+      <Filter>Classes\Enemy\Plant\PlantSpawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Plant\PlantManager\PlantManager.h">
+      <Filter>Classes\Enemy\Plant\PlantManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Plant\PlantAttack\PlantAttack.h">
+      <Filter>Classes\Enemy\Plant\PlantAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ConvenienceFeature\CF.h">
+      <Filter>Classes\ConvenienceFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Plant\PlantAnimation\PlantAnimation.h">
+      <Filter>Classes\Enemy\Plant\PlantAnimation</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SpriteRender.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ObjectID.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Boss\BossManager\BossManager.h">
+      <Filter>Classes\Enemy\Boss\BossManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Boss\BossAttack\BossAttack.h">
+      <Filter>Classes\Enemy\Boss\BossAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Boss\BossMove\BossMove.h">
+      <Filter>Classes\Enemy\Boss\BossMove</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Boss\Boss.h">
+      <Filter>Classes\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Enamy\Boss\BossHp.h">
+      <Filter>Classes\Enemy\Boss</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Base\Main.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\pch.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\GameBase.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\MainScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\wiGamepad\wiGamepad.cpp">
+      <Filter>Base\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\wiGamepad\wiMath.cpp">
+      <Filter>Base\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\wiGamepad\wiRawGamepad.cpp">
+      <Filter>Base\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\wiGamepad\wiXInput.cpp">
+      <Filter>Base\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Toolkits\DXTKCamera.cpp">
+      <Filter>Base\Gamepad\Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\titl.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\result.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SecondScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Player\Movement\Move.cpp">
+      <Filter>Classes\Player\PlayerMovement</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Player\BulletAttack\BlueBullet.cpp">
+      <Filter>Classes\Player\BulletAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Player\Player.cpp">
+      <Filter>Classes\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SampleClass.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Player\PlayerManager.cpp">
+      <Filter>Classes\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Player\PlayerColider\PlayerColider.cpp">
+      <Filter>Classes\Player\PlayerColider</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AttackBit\AttackBit.cpp">
+      <Filter>Classes\AttackBit</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AttackBit\BitAttack\BitAttack.cpp">
+      <Filter>Classes\AttackBit\BitAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AttackBit\BitMove\BitMove.cpp">
+      <Filter>Classes\AttackBit\BitMove</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AttackBit\BitManager\BitManager.cpp">
+      <Filter>Classes\AttackBit\BitManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Plant\Plant.cpp">
+      <Filter>Classes\Enemy\Plant</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Plant\PlantSpawn\PlantSpawn.cpp">
+      <Filter>Classes\Enemy\Plant\PlantSpawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Plant\PlantManager\PlantManager.cpp">
+      <Filter>Classes\Enemy\Plant\PlantManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Plant\PlantAttack\PlantAttack.cpp">
+      <Filter>Classes\Enemy\Plant\PlantAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ConvenienceFeature\CF.cpp">
+      <Filter>Classes\ConvenienceFeature</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Plant\PlantAnimation\PlantAnimation.cpp">
+      <Filter>Classes\Enemy\Plant\PlantAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SpriteRender.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Boss\BossManager\BossManager.cpp">
+      <Filter>Classes\Enemy\Boss\BossManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Boss\BossAttack\BossAttack.cpp">
+      <Filter>Classes\Enemy\Boss\BossAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Boss\BossMove\BossMove.cpp">
+      <Filter>Classes\Enemy\Boss\BossMove</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Boss\Boss.cpp">
+      <Filter>Classes\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Enamy\Boss\BossHp.cpp">
+      <Filter>Classes\Enemy\Boss</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\icon.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\resource.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Resource\settings.manifest">
+      <Filter>Resource</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
