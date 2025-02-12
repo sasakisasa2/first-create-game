@@ -2,33 +2,35 @@
 
 #pragma region Normal
 
-BossAttack::Normal::Normal():isMoveStart(false), attackCount(0)
+BossAttack::Normal::Normal():isMoveStart(false), count(0)
 {
 	//‘S‘Ì‚ÌUŒ‚‰ñ”
 	for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
 	{
 		//UŒ‚‰ñ”‚É‰‚¶‚½Å‰‚Ì’e‚Ì”z—ñ‚Ì”
-		int numberCountMax = NORMAL_SHOT_COUNT * attackCount;
+		int numberCountMax = normalOneShot * attackCount;
 
 		//’e‚ÌŒ‚‚Â•ûŒü
-		float shotVectorY = 1.0f;
+		float shotVectorY = -1.0f;
 		//UŒ‚‰ñ”‚©‚çã•ûŒü‚©‰º•ûŒü‚©”»’è‚·‚é
 		if (attackCount % 2 == 0) 
 		{
-			  shotVectorY = -1.0f;
+			  shotVectorY = 1.0f;
 		}
+
 		//ˆê‰ñ‚ÌUŒ‚‚ÅŒ‚‚Â’e‚Ì”
 		for (int bulletNumber = 0; bulletNumber < NORMAL_ONESHOT_MAX; bulletNumber++)
 		{
 			isShot[bulletNumber + numberCountMax]= false;
 
 			moveVector[bulletNumber + numberCountMax]
-				= ShotVectorSet(shotVectorY, NORMAL_ONESHOT_MAX, bulletNumber);
+				= ShotVectorSet(shotVectorY, NORMAL_SHOT_BULLET_MAX, NORMAL_SHOT_COUNT, bulletNumber);
 		}
 	}
 }
 
-void BossAttack::Normal::Update(Vector2 bossPosition) 
+
+void BossAttack::Normal::ShotMove()
 {	
 	// ’e‚ÌˆÚ“®
 	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
@@ -38,42 +40,39 @@ void BossAttack::Normal::Update(Vector2 bossPosition)
 			position[bulletNumber] += moveVector[bulletNumber] * GetNormalShotSpeed() * DXTK->Time.deltaTime;
 		}
 	}
+}
 
-	//UŒ‚‰ñ”‚É‰‚¶‚½Å‰‚Ì’e‚Ì”z—ñ‚Ì”
-	int numberCountMax = NORMAL_SHOT_COUNT * attackCount;
-
+void BossAttack::Normal::ShotPreparation(Vector2 bossPosition)
+{
+	if (isMoveStart) { return; }
 	//ˆê‰ñ‚ÌUŒ‚‚ÅŒ‚‚Â’e‚Ì”
 	for (int bulletNumber = 0; bulletNumber < NORMAL_ONESHOT_MAX; bulletNumber++)
-	{
-		if (isMoveStart) { continue; }
-			
-		    isShot[bulletNumber + numberCountMax] = true;
-			position[bulletNumber + numberCountMax] = bossPosition;
+	{	
+			 isShot[bulletNumber+ (NORMAL_ONESHOT_MAX * count)] = true;
+			 position[bulletNumber + (NORMAL_ONESHOT_MAX * count)] = bossPosition;
 
 		if (bulletNumber == NORMAL_ONESHOT_MAX - 1) 
 		{
-			attackCount++;
+			count++;
 			isMoveStart = true; 
 			break;
 		}
 	}
 }
 
-Vector2 BossAttack::Normal::ShotVectorSet(float shotVectorY,float oneShotBulletMax, float bulletNumber)
+Vector2 BossAttack::Normal::ShotVectorSet(float shotVectorY,float shotMax,float shotCountMax, float bulletNumber)
 {
 	Vector2 vector;
 	//‘S‘Ì”‚Ì”¼•ª‚©‚ç’e‚Ì”z—ñ‚Ì”š‚ğŠ„‚èA’e‚Ì•ûŒü‚ğŒˆ‚ß‚é
-	float place = bulletNumber / (oneShotBulletMax / 2.0f);
+	float place = bulletNumber / (((shotMax / shotCountMax) / 2.0f)-1);
 	vector.x = -1.0f + place;
-	if (place > 1.0f) 
+	if (place >= 1.0f)
 	{
-		place = 2.0f - place;
+		place= 2.0f - place;
 	}
-	vector.y = (0.0f + place) * shotVectorY;
+	vector.y = place * shotVectorY;
 	return vector;
-
 }
-
 #pragma endregion
 
 #pragma region AimShot

@@ -8,10 +8,10 @@ namespace BossAttack
     {
     private:
         bool    isMoveStart;
-        int     attackCount;
+        int     count;
         bool    isShot    [NORMAL_SHOT_BULLET_MAX];//’e‚Ì”­ËŠÇ—
         Vector2 moveVector[NORMAL_SHOT_BULLET_MAX];//UŒ‚•ûŒü
-
+        int     normalOneShot = NORMAL_ONESHOT_MAX;
         /// <summary>
         /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğ•Ô‚·
         /// ”¼‰~ó‚É“WŠJ‚·‚é
@@ -20,14 +20,15 @@ namespace BossAttack
         /// <param name="oneShotBulletMax">’e‚ÌÅ‘å”</param>
         /// <param name="bulletNumber">Œ»İ‰½”­–Ú‚©</param>
         /// <returns>Œü‚©‚¤•ûŒü</returns>
-        Vector2 ShotVectorSet(float shotVectorY,float oneShotBulletMax,float bulletNumber);
+        Vector2 ShotVectorSet(float shotVectorY,float shotMax,float shotCountMax,float bulletNumber);
 
     public:
         Normal();
-        int  GetAttackCount() { return attackCount; }
-        bool GetIsMoveStart() { return isMoveStart; }
+        int  GetAttackCount() const { return count; }
+        bool GetIsMoveStart() const { return isMoveStart; }
         void SetIsMoveStart(bool setIsMove) { isMoveStart = setIsMove; }
-        void Update(Vector2 BossPosition);
+        void ShotMove();
+        void ShotPreparation(Vector2 bossPosition);
     };
 
     class AimShot :public BossManager

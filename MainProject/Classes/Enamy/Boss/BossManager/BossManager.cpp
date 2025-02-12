@@ -6,7 +6,7 @@ BossManager::BossManager() :
 	effect  (SpriteEffects_None)
 {
 	bossSpriteSize           = Vector2(200.0f,200.0f);
-	moveSpeed                = 100.0f;
+	moveSpeed                = 500.0f;
 	//í èÌçUåÇ
 	normalSpriteSize         = Vector2(50.0f,50.0f);
 	normalShotSpeed          = 300.0f;

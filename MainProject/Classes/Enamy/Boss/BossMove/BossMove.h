@@ -7,7 +7,7 @@ class BossMove :public BossManager
 private:
 	bool isMoveEnd;
 public:
-	BossMove() :isMoveEnd(false) 
+	BossMove() :isMoveEnd(true) 
 	{ }
 	Vector2 GetPosition() { return position[0]; }
 	bool    GetIsMoveEnd() { return isMoveEnd;  }

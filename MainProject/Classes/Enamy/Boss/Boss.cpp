@@ -31,53 +31,55 @@ void Boss::Update(Vector2 playerPosition)
 			attackMode++;
 		}
 	//	break;
-	//case 2:
+	//case 2:	
+
 		if (normalAttack.GetIsMoveStart())
 		{
 			if (normalAttack.GetAttackCount() % 2 == 0)
 			{
-				move.Update(1.0f);
+				move.Update(-1.0f);
 			}
 			else
 			{
-				move.Update(-1.0f);
+				move.Update(1.0f); 
 			}
 		}
 		if (move.GetIsMoveEnd())
-		{
-			normalAttack.SetIsMoveStart(false);
-			if (normalAttack.GetIsMoveStart())
+		{	
+			if (normalAttack.GetAttackCount() >= normalAttack.NORMAL_SHOT_COUNT)
 			{
+				if (modeChangeCoolTime.TimeMeasurement(2))
+				{
+					modeChangeCoolTime.TimerReSet();
+					inductionAttack.InductionStart(move.GetPosition());
+					attackMode++;
+				}
+			}
+			else
+			{
+				normalAttack.SetIsMoveStart(false);
+				normalAttack.ShotPreparation(move.GetPosition());
 				move.SetIsMoveEnd(false);
 			}
-		}	
-		normalAttack.Update(move.GetPosition());
-
-		if (normalAttack.GetAttackCount() == normalAttack.NORMAL_SHOT_COUNT)
-		{
-			if (modeChangeCoolTime.TimeMeasurement(2))
-			{
-				modeChangeCoolTime.TimerReSet();
-				inductionAttack.InductionStart(move.GetPosition());
-				attackMode++;
-			}
 		}
+		normalAttack.ShotMove();
+
 	//	break;
 	//case 3:
-		inductionAttack.Update(playerPosition);
-		if (modeChangeCoolTime.TimeMeasurement(2))
-		{
-			modeChangeCoolTime.TimerReSet();
-			attackMode++;
-		}
+		//inductionAttack.Update(playerPosition);
+		//if (modeChangeCoolTime.TimeMeasurement(2))
+		//{
+		//	modeChangeCoolTime.TimerReSet();
+		//	attackMode++;
+		//}
 	//	break;
 	//case 4:
-		aimShotAttack.Update(move.GetPosition(), playerPosition);
-		if (modeChangeCoolTime.TimeMeasurement(2))
-		{
-			modeChangeCoolTime.TimerReSet();
-			attackMode = 1;
-		}
+		//aimShotAttack.Update(move.GetPosition(), playerPosition);
+		//if (modeChangeCoolTime.TimeMeasurement(2))
+		//{
+		//	modeChangeCoolTime.TimerReSet();
+		//	attackMode = 1;
+		//}
 	//	break;
 	//default:
 		attackMode = 1;
