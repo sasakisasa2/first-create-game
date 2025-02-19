@@ -60,19 +60,19 @@ float CF::Distance(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 position
 bool CF::PositionRengeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height)
 {
 	bool isOver = false;
-	if (position.x > Height.x)
-	{
-		isOver = true;
-	}
 	if (position.x < width.x)
 	{
 		isOver = true;
 	}
-	if (position.y > Height.y)
+	if (position.x > width.y)
 	{
 		isOver = true;
 	}
-	if (position.y < width.y)
+	if (position.y < Height.x)
+	{
+		isOver = true;
+	}
+	if (position.y > Height.y)
 	{
 		isOver = true;
 	}

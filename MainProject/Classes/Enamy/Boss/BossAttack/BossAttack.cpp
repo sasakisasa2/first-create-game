@@ -35,6 +35,7 @@ void BossAttack::Normal::ShotMove()
 	// 弾の移動
 	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
 	{
+		color[bulletNumber] = Vector4(0.0f,0,0,0);
 		if (isShot[bulletNumber]) 
 		{
 			position[bulletNumber] += moveVector[bulletNumber] * GetNormalShotSpeed() * DXTK->Time.deltaTime;
@@ -81,8 +82,8 @@ BossAttack::AimShot::AimShot()
 {
 	for (int bulletNumber = 0; bulletNumber < AIMSHOT_COUNT; bulletNumber++)
 	{
-		isShotMove[bulletNumber]  = 0;
-		isPlaceMove[bulletNumber] = 0;
+		isShotMove  = false;
+		isPlaceMove = false;
 	}
 }
 
@@ -90,99 +91,85 @@ void BossAttack::AimShot::ShotReserve()
 {
 	for (int attackCount = 0; attackCount < AIMSHOT_COUNT; attackCount++)
 	{
-		isShotMove[attackCount]  = false;
-
-		isPlaceMove[attackCount] = false;
+		isShotMove  = false;
+		isPlaceMove = false;
 	}
 }
 
-Vector2 BossAttack::AimShot::SetAttackReserve(int attackCount, int bulletNumber)
+Vector2 BossAttack::AimShot::SetAttackReserve(int bulletNumber)
 {
 	Vector2 setPosition;
 	setPosition = Vector2(
-		GetAimShotShotPlace() * ((bulletNumber - AIMSHOT_ONEATTACK_BULLET_MAX * attackCount) + 1.0f) + GetAimShotPlaceMin(),
+		GetAimShotShotPlace() * (bulletNumber + 1.0f)  + GetAimShotPlaceMin(),
 		GetAimShotHyde());
 	return setPosition;
 }
 
 void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 {
-	//自機狙い弾
-	Vector2 setPositionMove;
 	//指定時間測る
-	bool isTimer = shotTimer.TimeMeasurement(GetToShotTime());
-	//攻撃回数
-	for (int attackCount = 0; attackCount < AIMSHOT_COUNT; attackCount++)
-	{		
-		//弾数
-		for (int bulletNumber = AIMSHOT_ONEATTACK_BULLET_MAX * attackCount; bulletNumber < AIMSHOT_ONEATTACK_BULLET_MAX * (attackCount + 1.0f); bulletNumber++)
-		{
-			//攻撃準備
-			if (!isPlaceMove[attackCount])
-			{
-				position[bulletNumber] = bossPosition;
-
-				if (bulletNumber == AIMSHOT_ONEATTACK_BULLET_MAX - 1)
-					isPlaceMove[attackCount] = true;
-			}
-			//攻撃前の位置へ移動
-			if (isPlaceMove[attackCount] && !isShotMove[attackCount])
-			{
-				//攻撃準備位置の方向ベクトル
-				setPositionMove = CF::DistanceCount(SetAttackReserve(attackCount, bulletNumber), position[bulletNumber]);
-				//攻撃準備位置へ移動
-				position[bulletNumber] += setPositionMove * GetAimShotSettingSpeed() * DXTK->Time.deltaTime;
-			}
-			if (!isShotMove[attackCount])
-			{
-				//対象へのベクトルを計算
-				shotVector[bulletNumber] = CF::DistanceCount(playerPosition, position[bulletNumber]);
-			}
-			if (isShotMove[attackCount])
-			{
-				//対象へ攻撃
-				position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
-			}
-		}
-		if (isTimer)
-		{
-			if (attackCount == AIMSHOT_COUNT - 1.0f)
-			{
+	if (shotTimer.TimeMeasurement(GetToShotTime()))
+	{
+			//if (attackCount == AIMSHOT_COUNT - 1.0f)
+			//{
 				//弾の残りの発射
-				isShotMove[attackCount] = true;
+				isShotMove = true;
 				shotTimer.TimerReSet();
-			}
-			else
-			{
-				//弾の半分の発射と同時に次の弾の準備
-				isShotMove[attackCount] = true;
-				isPlaceMove[attackCount + 1] = true;
-				shotTimer.TimerReSet();
-			}
-		}
-		else 
+			//}
+			//else
+			//{
+				////弾の半分の発射と同時に次の弾の準備
+				//isShotMove = true;
+				//isPlaceMove[attackCount + 1] = true;
+				//shotTimer.TimerReSet();
+			//}
+	}
+
+	//攻撃一回の弾数
+	for (int bulletNumber = 0; bulletNumber < AIMSHOT_ONEATTACK_BULLET_MAX; bulletNumber++)
+	{
+		//攻撃準備
+		if (!isPlaceMove)
 		{
-			break;
+			position[bulletNumber] = bossPosition;
+
+			if (bulletNumber == AIMSHOT_ONEATTACK_BULLET_MAX-1)
+				isPlaceMove = true;
+		}
+		//攻撃前の位置へ移動
+		if (isPlaceMove && !isShotMove)
+		{
+			//攻撃準備位置の方向ベクトル
+			Vector2 setMoveVector = CF::DistanceCount(SetAttackReserve(bulletNumber), position[bulletNumber]);
+			//攻撃準備位置へ移動
+			position[bulletNumber] += setMoveVector * GetAimShotSettingSpeed() * DXTK->Time.deltaTime;
+		}
+		if (!isShotMove)
+		{
+			//対象への方向を計算
+			shotVector[bulletNumber] = CF::DistanceCount(playerPosition, position[bulletNumber]);
+		}
+		if (isShotMove)
+		{
+			//対象へ攻撃
+			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
 		}
 	}
 	//画面外に出たら初期化
 	if (CF::PositionRengeOver(position[AIMSHOT_BULLET_MAX - 1],
-		Vector2(-sprite.size.x, DXTK->Screen.Width + sprite.size.x),
-		Vector2(-sprite.size.y, DXTK->Screen.Height + sprite.size.y)))
+		Vector2((float)sprite.size.x*-1.0f, (float)DXTK->Screen.Width  + (float)sprite.size.x),
+		Vector2((float)sprite.size.y*-1.0f, (float)DXTK->Screen.Height + (float)sprite.size.y)))
 	{
-		for (int bulletNumber = 0; bulletNumber < AIMSHOT_COUNT; bulletNumber++)
-		{
-			isShotMove[bulletNumber]  = false;
-			isPlaceMove[bulletNumber] = false;
-		}
+
+		isShotMove  = false;
+		isPlaceMove = false;
 	}
 }
-
 #pragma endregion
 
 #pragma region Induction
 BossAttack::Induction::Induction() :
-	isMove(false), isPositionUpdate(true),
+	isMove(true), isPositionUpdate(true),
 	moveVector() , oldPlayerPosition(),
 	volume(1)
 { } 
@@ -196,53 +183,70 @@ void BossAttack::Induction::InductionStart(Vector2 startPosition)
 	largeTimer.TimerReSet();
 }
 
-void BossAttack::Induction::Update(Vector2 playerPosition) 
+void BossAttack::Induction::Update(Vector2 playerPosition)
 {
 	//サイズの更新
 	sprite.size.x = GetInductionSpriteSize().x * volume;
 	sprite.size.y = GetInductionSpriteSize().y * volume;
-	
-	bool isLarge = largeTimer.TimeMeasurement(GetVolumeLargeTime());
 
-	//距離が近くなった際に追尾地点を更新
-	if (CF::Distance(oldPlayerPosition,position[0]) <= 1) 
-	{
-		isPositionUpdate = true;
+	if (volume != GetMaxVolume())
+	{	
+		//発射まで方向を計算
+		moveVector = CF::DistanceCount(oldPlayerPosition, position[0]);
+
+		//追跡移動	
+		if (isMove)
+		{
+			position[0] += moveVector * GetInductionMoveSpeed() * volume * DXTK->Time.deltaTime;
+		}
+		//距離が近くなった際に追尾地点を更新
+		if (CF::Distance(oldPlayerPosition, position[0]) <= 1)
+		{
+			isPositionUpdate = true;
+		}
+
+		//指定時間に達している場合サイズを大きくする
+		if (largeTimer.TimeMeasurement(GetVolumeLargeTime()))
+		{
+			//サイズの拡大
+			volume++;
+			largeTimer.TimerReSet();
+		}
 	}
 
 	//追尾地点の更新
-	if (isPositionUpdate || volume == GetMaxVolume() && isLarge)
+	if (isPositionUpdate)
 	{
 		oldPlayerPosition = playerPosition;
 		isPositionUpdate = false;
 	}
 
+
 	//最大サイズかつ一定時間後最終攻撃
-	if (volume == GetMaxVolume() && isLarge)
+	if (volume == GetMaxVolume())
 	{
-		isMove = false;
-		position[0] += CF::DistanceCount(oldPlayerPosition, position[0]) *
-					   GetInductionLastAttackSpeed() * DXTK->Time.deltaTime;
-		if (CF::PositionRengeOver (position[0],
-				 Vector2(-sprite.size.x, DXTK->Screen.Width  + sprite.size.x),
-				 Vector2(-sprite.size.y, DXTK->Screen.Height + sprite.size.y)))
+		//停止時間
+		if (attackCoolTimer.TimeMeasurement(3))
 		{
+			//ラストアタック
+			position[0] += moveVector * GetInductionLastAttackSpeed() * DXTK->Time.deltaTime;
+		}	
+		else
+		{
+			isPositionUpdate = true;
+			//発射まで方向を計算
+			moveVector = CF::DistanceCount(oldPlayerPosition, position[0]);
+		}
+
+		if (CF::PositionRengeOver(position[0],
+			Vector2((float)sprite.size.x*-1.0f, (float)DXTK->Screen.Width  + (float)sprite.size.x),
+			Vector2((float)sprite.size.y*-1.0f, (float)DXTK->Screen.Height + (float)sprite.size.y))
+			)	
+		{
+			attackCoolTimer.TimerReSet();
 			largeTimer.TimerReSet();
 			volume = 1;
 		}
-	}
-
-	//追跡移動
-	if (isMove) 
-	{
-		position[0] += CF::DistanceCount(oldPlayerPosition, position[0])*
-					   GetInductionMoveSpeed() * volume * DXTK->Time.deltaTime;
-	}
-	//大きさ変化
-	if (volume != GetMaxVolume() && isLarge)
-	{
-		volume++;
-		largeTimer.TimerReSet();
 	}
 }
 #pragma endregion
@@ -305,6 +309,7 @@ void BossAttack::Frame::Update()
 {
 	for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++) 
 	{
+		color[bulletNumber] = Vector4(0.0f, 0, 0, 0);
 		//指定方向移動
 		position[bulletNumber] += move[bulletNumber] * GetFrameMoveSpeed() * DXTK->Time.deltaTime;
 		//切り返し

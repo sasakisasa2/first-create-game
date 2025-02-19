@@ -35,13 +35,13 @@ namespace BossAttack
     {
     private:
         CF::Timer shotTimer;
-        Vector2 shotVector[AIMSHOT_BULLET_MAX];
+        Vector2 shotVector[AIMSHOT_ONEATTACK_BULLET_MAX];
+
         //”­Ë‚ğŠÇ—‚·‚é•Ï”
-        bool isShotMove[AIMSHOT_COUNT];
-        bool isPlaceMove[AIMSHOT_COUNT];//’e‚Ì’èˆÊ’u‚Ü‚Å‚ÌˆÚ“®ŠÇ—
+        bool isShotMove;
+        bool isPlaceMove;//’e‚Ì’èˆÊ’u‚Ü‚Å‚ÌˆÚ“®ŠÇ—
 
-
-        Vector2 SetAttackReserve(int attackCount,int bulletNumber);
+        Vector2 SetAttackReserve(int bulletNumber);
 
     public:
         AimShot();
@@ -56,6 +56,8 @@ namespace BossAttack
     {
     private:
         CF::Timer largeTimer;
+        CF::Timer attackCoolTimer;
+
         SimpleMath::Vector2 moveVector;
         SimpleMath::Vector2 oldPlayerPosition;
         //“r’†‚Å’Ç”ö‚ğ‚â‚ßis‚é

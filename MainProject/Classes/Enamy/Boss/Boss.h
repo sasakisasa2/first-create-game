@@ -10,10 +10,13 @@ private:
     int       attackMode;
     BossMove  move;           //attackMode::2
     Normal    normalAttack;   //attackMode::2
-    AimShot   aimShotAttack;  //attackMode::4
+    AimShot   aimShotAttack[5];//attackMode::4
     Frame     frameAttack;    //attackMode::1
     Induction inductionAttack;//attackMode::3
     CF::Timer modeChangeCoolTime;
+    CF::Timer aimShotTimer[5];
+    bool test = true;
+    int aimShotMoveCount = 1;
 public:
     Boss() :attackMode(1)
     { }
