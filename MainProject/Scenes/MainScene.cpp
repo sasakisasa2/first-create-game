@@ -247,11 +247,11 @@ void MainScene::Initialize()
 		if (bitcount % 2 == 0) {
 			playerBit[bitcount].Initialize(360.0f / (float)BIT_MAX * ((float)bitcount + 1.0f), 
 									       false, //‰ñ“]•ûŒü
-										   true );//˜p‹È•ûŒü
+										   false );//˜p‹È•ûŒü
 			continue;
 		}
 		    playerBit[bitcount].Initialize(360.0f / (float)BIT_MAX * ((float)bitcount + 1.0f),
-				                           true , //‰ñ“]•ûŒü
+				                           false , //‰ñ“]•ûŒü
 				                           false);//˜p‹È•ûŒü
 		    continue;
 	}
