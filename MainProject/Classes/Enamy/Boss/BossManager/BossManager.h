@@ -69,12 +69,8 @@ public:
 	static constexpr int   FRAME_BULLET_MAX       = 400; //ƒtƒŒ[ƒ€UŒ‚‚Ì’e”
 	static constexpr int   NORMAL_SHOT_COUNT      = 4;   //ƒm[ƒ}ƒ‹UŒ‚‚Ì‰ñ”
 	static constexpr int   NORMAL_SHOT_BULLET_MAX = 60;  //ƒm[ƒ}ƒ‹UŒ‚‚Ì’e”
-                                                         //ƒm[ƒ}ƒ‹UŒ‚‚Ìˆê‰ñ‚Ì’e”
-	static constexpr int   NORMAL_ONESHOT_MAX     = NORMAL_SHOT_BULLET_MAX / NORMAL_SHOT_COUNT;
 	static constexpr int   AIMSHOT_COUNT          = 2;   //©‹@‘_‚¢UŒ‚‚Ì‰ñ”
 	static constexpr int   AIMSHOT_BULLET_MAX     = 100;//©‹@‘_‚¢UŒ‚‚Ì’e”
-	                                                     //©‹@‘_‚¢UŒ‚‚Ìˆê‰ñ‚Ì’e”
-	static constexpr int   AIMSHOT_ONEATTACK_BULLET_MAX = AIMSHOT_BULLET_MAX / AIMSHOT_COUNT;
 
     void Load(DirectXTK::Sprite& preSprite);
 	void SpriteSizeSet(Vector2 setSize) 

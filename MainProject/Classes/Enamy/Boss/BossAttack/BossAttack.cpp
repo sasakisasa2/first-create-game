@@ -2,70 +2,30 @@
 
 #pragma region Normal
 
-BossAttack::Normal::Normal():isMoveStart(false), count(0)
-{
-	//‘S‘Ì‚ÌUŒ‚‰ñ”
-	for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
-	{
-		//UŒ‚‰ñ”‚É‰‚¶‚½Å‰‚Ì’e‚Ì”z—ñ‚Ì”
-		int numberCountMax = normalOneShot * attackCount;
-
-		//’e‚ÌŒ‚‚Â•ûŒü
-		float shotVectorY = -1.0f;
-		//UŒ‚‰ñ”‚©‚çã•ûŒü‚©‰º•ûŒü‚©”»’è‚·‚é
-		if (attackCount % 2 == 0) 
-		{
-			  shotVectorY = 1.0f;
-		}
-
-		//ˆê‰ñ‚ÌUŒ‚‚ÅŒ‚‚Â’e‚Ì”
-		for (int bulletNumber = 0; bulletNumber < NORMAL_ONESHOT_MAX; bulletNumber++)
-		{
-			isShot[bulletNumber + numberCountMax]= false;
-
-			moveVector[bulletNumber + numberCountMax]
-				= ShotVectorSet(shotVectorY, NORMAL_SHOT_BULLET_MAX, NORMAL_SHOT_COUNT, bulletNumber);
-		}
-	}
-}
-
-
-void BossAttack::Normal::ShotMove()
+void BossAttack::Normal::ShotMove(float moveVector)
 {	
 	// ’e‚ÌˆÚ“®
 	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
 	{
-		color[bulletNumber] = Vector4(0.0f,0,0,0);
-		if (isShot[bulletNumber]) 
-		{
-			position[bulletNumber] += moveVector[bulletNumber] * GetNormalShotSpeed() * DXTK->Time.deltaTime;
-		}
+			position[bulletNumber] += ShotVectorSet(moveVector, NORMAL_SHOT_BULLET_MAX, bulletNumber) * 
+									  GetNormalShotSpeed() * DXTK->Time.deltaTime;
 	}
 }
 
 void BossAttack::Normal::ShotPreparation(Vector2 bossPosition)
 {
-	if (isMoveStart) { return; }
 	//ˆê‰ñ‚ÌUŒ‚‚ÅŒ‚‚Â’e‚Ì”
-	for (int bulletNumber = 0; bulletNumber < NORMAL_ONESHOT_MAX; bulletNumber++)
+	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
 	{	
-			 isShot[bulletNumber+ (NORMAL_ONESHOT_MAX * count)] = true;
-			 position[bulletNumber + (NORMAL_ONESHOT_MAX * count)] = bossPosition;
-
-		if (bulletNumber == NORMAL_ONESHOT_MAX - 1) 
-		{
-			count++;
-			isMoveStart = true; 
-			break;
-		}
+			 position[bulletNumber] = bossPosition;
 	}
 }
 
-Vector2 BossAttack::Normal::ShotVectorSet(float shotVectorY,float shotMax,float shotCountMax, float bulletNumber)
+Vector2 BossAttack::Normal::ShotVectorSet(float shotVectorY,float shotMax, float bulletNumber)
 {
 	Vector2 vector;
 	//‘S‘Ì”‚Ì”¼•ª‚©‚ç’e‚Ì”z—ñ‚Ì”š‚ğŠ„‚èA’e‚Ì•ûŒü‚ğŒˆ‚ß‚é
-	float place = bulletNumber / (((shotMax / shotCountMax) / 2.0f)-1);
+	float place = bulletNumber / ((shotMax  / 2.0f));
 	vector.x = -1.0f + place;
 	if (place >= 1.0f)
 	{
@@ -110,30 +70,20 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 	//w’èŠÔ‘ª‚é
 	if (shotTimer.TimeMeasurement(GetToShotTime()))
 	{
-			//if (attackCount == AIMSHOT_COUNT - 1.0f)
-			//{
-				//’e‚Ìc‚è‚Ì”­Ë
-				isShotMove = true;
-				shotTimer.TimerReSet();
-			//}
-			//else
-			//{
-				////’e‚Ì”¼•ª‚Ì”­Ë‚Æ“¯‚ÉŸ‚Ì’e‚Ì€”õ
-				//isShotMove = true;
-				//isPlaceMove[attackCount + 1] = true;
-				//shotTimer.TimerReSet();
-			//}
+		//’e‚Ìc‚è‚Ì”­Ë
+		isShotMove = true;
+		shotTimer.TimerReSet();
 	}
 
 	//UŒ‚ˆê‰ñ‚Ì’e”
-	for (int bulletNumber = 0; bulletNumber < AIMSHOT_ONEATTACK_BULLET_MAX; bulletNumber++)
+	for (int bulletNumber = 0; bulletNumber < AIMSHOT_BULLET_MAX; bulletNumber++)
 	{
 		//UŒ‚€”õ
 		if (!isPlaceMove)
 		{
 			position[bulletNumber] = bossPosition;
 
-			if (bulletNumber == AIMSHOT_ONEATTACK_BULLET_MAX-1)
+			if (bulletNumber == AIMSHOT_BULLET_MAX-1)
 				isPlaceMove = true;
 		}
 		//UŒ‚‘O‚ÌˆÊ’u‚ÖˆÚ“®
@@ -154,15 +104,6 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 			//‘ÎÛ‚ÖUŒ‚
 			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
 		}
-	}
-	//‰æ–ÊŠO‚Éo‚½‚ç‰Šú‰»
-	if (CF::PositionRengeOver(position[AIMSHOT_BULLET_MAX - 1],
-		Vector2((float)sprite.size.x*-1.0f, (float)DXTK->Screen.Width  + (float)sprite.size.x),
-		Vector2((float)sprite.size.y*-1.0f, (float)DXTK->Screen.Height + (float)sprite.size.y)))
-	{
-
-		isShotMove  = false;
-		isPlaceMove = false;
 	}
 }
 #pragma endregion
@@ -309,7 +250,6 @@ void BossAttack::Frame::Update()
 {
 	for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++) 
 	{
-		color[bulletNumber] = Vector4(0.0f, 0, 0, 0);
 		//w’è•ûŒüˆÚ“®
 		position[bulletNumber] += move[bulletNumber] * GetFrameMoveSpeed() * DXTK->Time.deltaTime;
 		//Ø‚è•Ô‚µ

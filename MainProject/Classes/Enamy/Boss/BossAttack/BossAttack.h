@@ -7,27 +7,21 @@ namespace BossAttack
     class Normal:public BossManager
     {
     private:
-        bool    isMoveStart;
-        int     count;
-        bool    isShot    [NORMAL_SHOT_BULLET_MAX];//’e‚Ì”­ËŠÇ—
-        Vector2 moveVector[NORMAL_SHOT_BULLET_MAX];//UŒ‚•ûŒü
-        int     normalOneShot = NORMAL_ONESHOT_MAX;
         /// <summary>
-        /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğ•Ô‚·
-        /// ”¼‰~ó‚É“WŠJ‚·‚é
+        /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğŒvZ‚µ•Ô‚·
         /// </summary>
         /// <param name="shotVectorY">‰º•ûŒü‚©ã•ûŒü‚©(ã::-1,‰º::1)</param>
         /// <param name="oneShotBulletMax">’e‚ÌÅ‘å”</param>
-        /// <param name="bulletNumber">Œ»İ‰½”­–Ú‚©</param>
+        ///  <param name="oneShotBulletMax">‰½”­–Ú‚©</param>
         /// <returns>Œü‚©‚¤•ûŒü</returns>
-        Vector2 ShotVectorSet(float shotVectorY,float shotMax,float shotCountMax,float bulletNumber);
+        Vector2 ShotVectorSet(float shotVectorY,float shotMax,float bulletNumber);
 
     public:
-        Normal();
-        int  GetAttackCount() const { return count; }
-        bool GetIsMoveStart() const { return isMoveStart; }
-        void SetIsMoveStart(bool setIsMove) { isMoveStart = setIsMove; }
-        void ShotMove();
+        /// <summary>
+        /// w’è•ûŒü‚É¤ó‚É”ò‚ñ‚Å‚¢‚­
+        /// </summary>
+        /// <param name="moveVector">Œü‚©‚í‚¹‚½‚¢•ûŒü</param>
+        void ShotMove(float moveVector);
         void ShotPreparation(Vector2 bossPosition);
     };
 
@@ -35,7 +29,7 @@ namespace BossAttack
     {
     private:
         CF::Timer shotTimer;
-        Vector2 shotVector[AIMSHOT_ONEATTACK_BULLET_MAX];
+        Vector2 shotVector[AIMSHOT_BULLET_MAX];
 
         //”­Ë‚ğŠÇ—‚·‚é•Ï”
         bool isShotMove;
@@ -45,6 +39,9 @@ namespace BossAttack
 
     public:
         AimShot();
+
+        bool GetIsPlaceMove() { return isPlaceMove; }
+
         /// <summary>
         /// ‰Šú‰»ˆ—
         /// </summary>
@@ -67,6 +64,8 @@ namespace BossAttack
         int volume;
     public:
         Induction();
+
+        int GetVolume() { return volume; }
 
         /// <summary>
         /// ’Ç”ö’e‚Ì‹N“®

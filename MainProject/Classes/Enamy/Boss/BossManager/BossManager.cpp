@@ -14,7 +14,7 @@ BossManager::BossManager() :
 	//Ž©‹@‘_‚¢UŒ‚
 	aimShotSpriteSize       = Vector2(50.0f,50.0f);
 	aimShotPlaceMin         = 200.0f;
-	aimShotShotPlace        = ((float)DXTK->Screen.Width - (aimShotPlaceMin*2.0f)) / (float)AIMSHOT_ONEATTACK_BULLET_MAX;
+	aimShotShotPlace        = ((float)DXTK->Screen.Width - (aimShotPlaceMin*2.0f)) / (float)AIMSHOT_BULLET_MAX;
 	aimShotShotHyde         = 100.0f;
 	aimShotSettingSpeed     = 1000.0f;
 	aimShotShotSpeed        = 1000.0f;
