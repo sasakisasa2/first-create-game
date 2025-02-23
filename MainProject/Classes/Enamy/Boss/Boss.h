@@ -5,20 +5,20 @@
 #include"..\Boss\BossHp.h"
 using namespace DirectX;
 using namespace BossAttack;
-class Boss : BossManager {
+class Boss : public BossManager {
 private:
     int       attackMode;
-    BossMove  move;           //attackMode::2
-    Normal    normalAttack[NORMAL_SHOT_COUNT];   //attackMode::2
-    AimShot   aimShotAttack[5];//attackMode::4
-    Frame     frameAttack;    //attackMode::1
-    Induction inductionAttack;//attackMode::3
-    CF::Timer modeChangeCoolTime;
-    CF::Timer aimShotTimer[5];
-    bool test = true;
+
+    BossMove  move;           //ˆÚ“®
+    Frame     frameAttack;                    //attackMode::1
+    Normal    normalAttack[NORMAL_SHOT_COUNT];//attackMode::1
+    Induction inductionAttack;                //attackMode::2
+    AimShot   aimShotAttack[AIMSHOT_COUNT];   //attackMode::3
+
+    CF::Timer aimShotTimer[AIMSHOT_COUNT];
     bool isNormalAttackShot[NORMAL_SHOT_COUNT];
-    int aimShotMoveCount;
-    int normalAttackCount;
+    int  aimShotMoveCount;
+    int  normalAttackCount;
 public:
     Boss() :attackMode(1), normalAttackCount(0), aimShotMoveCount(1), isNormalAttackShot()
     { }

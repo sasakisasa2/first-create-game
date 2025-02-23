@@ -4,20 +4,29 @@
 
 void BossAttack::Normal::ShotMove(float moveVector)
 {	
+	int shotEndCount = 0;
+
 	// 弾の移動
 	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
 	{
-			position[bulletNumber] += ShotVectorSet(moveVector, NORMAL_SHOT_BULLET_MAX, bulletNumber) * 
-									  GetNormalShotSpeed() * DXTK->Time.deltaTime;
+		//設定方向へ移動
+		position[bulletNumber] += ShotVectorSet(moveVector, NORMAL_SHOT_BULLET_MAX, bulletNumber) * 
+								  GetNormalShotSpeed() * DXTK->Time.deltaTime;
+		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		{
+			shotEndCount++;
+			if (shotEndCount == NORMAL_SHOT_BULLET_MAX) { SetIsShotEnd(true); }
+		}
+
 	}
 }
 
-void BossAttack::Normal::ShotPreparation(Vector2 bossPosition)
+void BossAttack::Normal::ShotPreparation(Vector2 startPosition)
 {
 	//一回の攻撃で撃つ弾の数
 	for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
 	{	
-			 position[bulletNumber] = bossPosition;
+		position[bulletNumber] = startPosition;
 	}
 }
 
@@ -38,44 +47,42 @@ Vector2 BossAttack::Normal::ShotVectorSet(float shotVectorY,float shotMax, float
 
 #pragma region AimShot
 
-BossAttack::AimShot::AimShot()
-{
-	for (int bulletNumber = 0; bulletNumber < AIMSHOT_COUNT; bulletNumber++)
-	{
-		isShotMove  = false;
-		isPlaceMove = false;
-	}
-}
-
 void BossAttack::AimShot::ShotReserve()
 {
-	for (int attackCount = 0; attackCount < AIMSHOT_COUNT; attackCount++)
-	{
-		isShotMove  = false;
-		isPlaceMove = false;
-	}
+	isShotMove  = false;
+	isPlaceMove = false;
+	SetIsShotEnd(false);
 }
 
 Vector2 BossAttack::AimShot::SetAttackReserve(int bulletNumber)
 {
 	Vector2 setPosition;
+	//準備位置の計算
+	//x.(弾同士の間隔*(何発目か)+指定範囲までの距離),y.弾の高さ
 	setPosition = Vector2(
-		GetAimShotShotPlace() * (bulletNumber + 1.0f)  + GetAimShotPlaceMin(),
+		GetAimShotShotPlace() * bulletNumber + GetAimShotPlaceMin(),
 		GetAimShotHyde());
 	return setPosition;
 }
 
 void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 {
-	//指定時間測る
-	if (shotTimer.TimeMeasurement(GetToShotTime()))
+	if (GetIsShotEnd()) { return; }
+	
+	//弾の発射までの時間を測る
+	if (!isShotMove)
 	{
-		//弾の残りの発射
-		isShotMove = true;
-		shotTimer.TimerReSet();
+		if (shotTimer.TimeMeasurement(GetToShotTime()))
+		{
+			//弾の発射
+			isShotMove = true;
+			shotTimer.TimerReSet();
+		}
 	}
 
-	//攻撃一回の弾数
+	int endCount = 0;//攻撃が終わったかどうか判定するための変数
+	
+	//攻撃の弾数分回す
 	for (int bulletNumber = 0; bulletNumber < AIMSHOT_BULLET_MAX; bulletNumber++)
 	{
 		//攻撃準備
@@ -104,6 +111,13 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 			//対象へ攻撃
 			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
 		}
+		//弾が範囲外にいるかどうかの確認
+		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		{
+			endCount++;
+			//攻撃全てが範囲外だった場合
+			if (endCount == AIMSHOT_BULLET_MAX) { SetIsShotEnd(true); }
+		}
 	}
 }
 #pragma endregion
@@ -121,6 +135,7 @@ void BossAttack::Induction::InductionStart(Vector2 startPosition)
 	isMove			 = true;
 	isPositionUpdate = true;
 	position[0]		 = startPosition;
+	SetIsShotEnd(false);
 	largeTimer.TimerReSet();
 }
 
@@ -167,7 +182,7 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 	if (volume == GetMaxVolume())
 	{
 		//停止時間
-		if (attackCoolTimer.TimeMeasurement(3))
+		if (attackCoolTimer.TimeMeasurement(GetInductionAttackStopTime()))
 		{
 			//ラストアタック
 			position[0] += moveVector * GetInductionLastAttackSpeed() * DXTK->Time.deltaTime;
@@ -179,14 +194,14 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 			moveVector = CF::DistanceCount(oldPlayerPosition, position[0]);
 		}
 
-		if (CF::PositionRengeOver(position[0],
-			Vector2((float)sprite.size.x*-1.0f, (float)DXTK->Screen.Width  + (float)sprite.size.x),
-			Vector2((float)sprite.size.y*-1.0f, (float)DXTK->Screen.Height + (float)sprite.size.y))
-			)	
+		if (CF::PositionRengeOver(position[0],XRange(), YRange()))
 		{
+			volume = 1;
+			isMove = false;
+			isPositionUpdate = false;
+			SetIsShotEnd(true);
 			attackCoolTimer.TimerReSet();
 			largeTimer.TimerReSet();
-			volume = 1;
 		}
 	}
 }
@@ -194,10 +209,10 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 
 #pragma region Frame
 
-BossAttack::Frame::Frame(): move()
+BossAttack::Frame::Frame(): move(), isVectorSwitch(false)
 {
-	screenMin = Vector2(0.0f + GetFrameSpriteSize().x / 2.0f, 0.0f + GetFrameSpriteSize().y / 2.0f);
-	screenMax = Vector2(DXTK->Screen.Width - GetFrameSpriteSize().x/2.0f, DXTK->Screen.Height - GetFrameSpriteSize().y/2.0f);
+	xRange = Vector2((float)GetFrameSpriteSize().x / 2.0f, (float)DXTK->Screen.Width  - (float)GetFrameSpriteSize().x / 2.0f);
+	yRange = Vector2((float)GetFrameSpriteSize().y / 2.0f, (float)DXTK->Screen.Height - (float)GetFrameSpriteSize().y / 2.0f);
 }
 
 void BossAttack::Frame::PositionSet()
@@ -212,30 +227,30 @@ void BossAttack::Frame::PositionSet()
 		if (bulletNumber <= GetFrameEighth())
 		{
 			setPosition 
-				= Vector2(screenMin.x,
-		                  (screenMax.y / GetFrameEighth()) * bulletNumber);
+				= Vector2(xRange.x,
+		                  (yRange.y / GetFrameEighth()) * bulletNumber);
 		}
 		//弾最大数の8分の1を画面右端に設置
 		else if (bulletNumber <= GetFrameQuarter())
 		{
 			setPosition 
-				= Vector2(screenMax.x,
-				         (screenMax.y / GetFrameEighth()) * (bulletNumber - GetFrameEighth()));
+				= Vector2(xRange.y,
+				         (yRange.y / GetFrameEighth()) * (bulletNumber - GetFrameEighth()));
 		}
 		//残りの弾数の半分を画面上部に設置
 		else if (bulletNumber <= (GetFrameQuarter() * 3.0f) - GetFrameEighth())
 		{
 			setPosition
-				= Vector2((screenMax.x / eighthPlusQuarter) * (bulletNumber - GetFrameQuarter()),
-					      screenMin.y);
+				= Vector2((xRange.y / eighthPlusQuarter) * (bulletNumber - GetFrameQuarter()),
+					       yRange.x);
 		}
 		//残りを画面下部に設置
 		else
 		{
 			float frameNumber = (GetFrameQuarter() * 3.0f) - GetFrameEighth();
 			setPosition
-				= Vector2(screenMax.x / eighthPlusQuarter *(bulletNumber - frameNumber),
-					      screenMax.y);
+				= Vector2(xRange.y / eighthPlusQuarter *(bulletNumber - frameNumber),
+					      yRange.y);
 		}
 
 		position[bulletNumber] = setPosition;
@@ -248,18 +263,25 @@ void BossAttack::Frame::PositionSet()
 
 void BossAttack::Frame::Update()
 {
+	int moveEndCount = 0;
 	for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++) 
 	{
 		//指定方向移動
 		position[bulletNumber] += move[bulletNumber] * GetFrameMoveSpeed() * DXTK->Time.deltaTime;
-		//切り返し
-		OutRenge(bulletNumber);
+		//切り返し	
+		if(!isVectorSwitch)
+		OutRange(bulletNumber);
+		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		{
+			moveEndCount++;
+			if (moveEndCount == FRAME_BULLET_MAX) { SetIsShotEnd(true); }
+		}
 	}
 }
 
-void BossAttack::Frame::OutRenge(int number)
+void BossAttack::Frame::OutRange(int number)
 {
-	bool rengeOver = CF::PositionRengeOver(position[number], screenMin, screenMax);
+	bool rengeOver = CF::PositionRengeOver(position[number], xRange, yRange);
 	//指定範囲外に出ていない場合戻す
 	if (!rengeOver)
 	{
@@ -274,51 +296,51 @@ void BossAttack::Frame::OutRenge(int number)
 	{
 		//指定範囲外から出た分指定方向に加え、フレームがガタガタにならないように
 		move[number] = Vector2(-1.0f,0.0f);
-		reStartMove	     = position[number].y - screenMin.y;
-		position[number] = Vector2(screenMax.x + reStartMove , screenMin.y);
+		reStartMove	     = position[number].y - yRange.x;
+		position[number] = Vector2(xRange.y + reStartMove, yRange.x);
 	}
 	//上左端から下方向へ
 	else if (move[number].x == -1.0f)
 	{
 		move[number] = Vector2(0.0f, 1.0f);
-		reStartMove	     = screenMin.x - position[number].x;
-		position[number] = Vector2(screenMin.x, screenMin.y + reStartMove);
+		reStartMove	     = xRange.x - position[number].x;
+		position[number] = Vector2(xRange.x, yRange.x + reStartMove);
 	}
 	//下左端から右方向へ
 	else if (move[number].y == 1.0f)
 	{
 		move[number]	 = Vector2(1.0f, 0.0f);
-		reStartMove	     = screenMax.y - position[number].y;
-		position[number] = Vector2(screenMin.x - reStartMove, screenMax.y);
+		reStartMove	     = position[number].y - yRange.y;
+		position[number] = Vector2(xRange.x + reStartMove, yRange.y);
 	}
 	//下右端から上方向へ
 	else if (move[number].x == 1.0f)
 	{
 		move[number] = Vector2(0.0f, -1.0f);
-		reStartMove	     = screenMax.x - position[number].x;
-		position[number] = Vector2(screenMax.x, screenMax.y + reStartMove);
+		reStartMove	     = xRange.y - position[number].x;
+		position[number] = Vector2(xRange.y, yRange.y + reStartMove);
 	}
 }
 
 void BossAttack::Frame::VectorSet(int number)
 {
 	//上部に居るとき左方向へ
-	if (position[number].x <= screenMax.x && position[number].y <= screenMin.y)
+	if (position[number].x <= xRange.y && position[number].y <= yRange.x)
 	{
 		move[number] = Vector2(-1.0f, 0.0f);
 	}
 	//左部に居るとき下方向へ
-	if (position[number].x <= screenMin.x && position[number].y >= screenMin.y)
+	if (position[number].x <= xRange.x && position[number].y >= yRange.x)
 	{
 		move[number] = Vector2(0.0f, 1.0f);
 	}
 	//下部に居るとき右方向へ
-	if (position[number].x >= screenMin.x && position[number].y >= screenMax.y)
+	if (position[number].x >= xRange.x && position[number].y >= yRange.y)
 	{
 		move[number] = Vector2(1.0f, 0.0f);
 	}
 	//右部に居るとき上方向へ
-	if (position[number].x >= screenMax.x && position[number].y <= screenMax.y)
+	if (position[number].x >= xRange.y && position[number].y <= yRange.y)
 	{
 		move[number] = Vector2(0.0f, -1.0f);
 	}
