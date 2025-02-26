@@ -56,6 +56,12 @@ namespace CF
     /// <returns>出ていればtrue,出ていなければfalse</returns>
     bool PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
 
+    /// <summary>
+    /// 向かう方向から角度を計算して返す
+    /// </summary>
+    /// <param name="vector">向かう方向</param>
+    /// <param name="angle">現在の角度</param>
+    /// <returns>計算後の角度</returns>
     float ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle);
 
     /// <summary>
