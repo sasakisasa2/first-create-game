@@ -12,7 +12,7 @@ void BossAttack::Normal::ShotMove(float moveVector)
 		//設定方向へ移動
 		position[bulletNumber] += ShotVectorSet(moveVector, NORMAL_SHOT_BULLET_MAX, bulletNumber) * 
 								  GetNormalShotSpeed() * DXTK->Time.deltaTime;
-		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		if (CF::PositionRangeOver(position[bulletNumber], XRange(), YRange()))
 		{
 			shotEndCount++;
 			if (shotEndCount == NORMAL_SHOT_BULLET_MAX) { SetIsShotEnd(true); }
@@ -112,7 +112,7 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
 		}
 		//弾が範囲外にいるかどうかの確認
-		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		if (CF::PositionRangeOver(position[bulletNumber], XRange(), YRange()))
 		{
 			endCount++;
 			//攻撃全てが範囲外だった場合
@@ -194,7 +194,7 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 			moveVector = CF::DistanceCount(oldPlayerPosition, position[0]);
 		}
 
-		if (CF::PositionRengeOver(position[0],XRange(), YRange()))
+		if (CF::PositionRangeOver(position[0],XRange(), YRange()))
 		{
 			volume = 1;
 			isMove = false;
@@ -271,7 +271,7 @@ void BossAttack::Frame::Update()
 		//切り返し	
 		if(!isVectorSwitch)
 		OutRange(bulletNumber);
-		if (CF::PositionRengeOver(position[bulletNumber], XRange(), YRange()))
+		if (CF::PositionRangeOver(position[bulletNumber], XRange(), YRange()))
 		{
 			moveEndCount++;
 			if (moveEndCount == FRAME_BULLET_MAX) { SetIsShotEnd(true); }
@@ -281,7 +281,7 @@ void BossAttack::Frame::Update()
 
 void BossAttack::Frame::OutRange(int number)
 {
-	bool rengeOver = CF::PositionRengeOver(position[number], xRange, yRange);
+	bool rengeOver = CF::PositionRangeOver(position[number], xRange, yRange);
 	//指定範囲外に出ていない場合戻す
 	if (!rengeOver)
 	{

@@ -54,5 +54,5 @@ namespace CF
     /// <param name="width">X座標の範囲</param>
     /// <param name="Height">Y座標の範囲</param>
     /// <returns>出ていればtrue,出ていなければfalse</returns>
-    bool PositionRengeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
+    bool PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
 }
