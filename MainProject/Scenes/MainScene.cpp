@@ -41,7 +41,7 @@ void MainScene::LoadAssets()
 	DirectXTK::Sprite playerSprite;
 	if (DontDestroy->attackAttribute == 2) {
 		playerSprite = DirectXTK::CreateSpriteSRV(
-			device, L"Player_red.png", resourceUpload,
+			device, L"Player_red2.png", resourceUpload,
 			descHeap, PlayerEnum::Player
 		);
 	}

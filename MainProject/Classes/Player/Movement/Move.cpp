@@ -40,6 +40,9 @@ void  Move::Update()
 	//}
 #pragma endregion
 	move.Normalize();
+	
+	angle = CF::ChangeVectorToAngle(move, angle);
+	
 	//ˆÚ“®
 	position[0] += move * GetMoveSpeed() * DXTK->Time.deltaTime;
 

@@ -149,7 +149,7 @@ void PlayerManager::Render(DirectX::SpriteBatch* spriteBatch, int count)
 			sprite.handle, sprite.size, position[number],
 			nullptr,//画像のどこに表示するか
 			color,//色の間引き方(カラーマスク)
-			0.0f * Mathf::Deg2Rad, SimpleMath::Vector2(sprite.size.x / 2, sprite.size.y / 2),//回転の角度と軸
+			angle * Mathf::Deg2Rad, SimpleMath::Vector2(sprite.size.x / 2, sprite.size.y / 2),//回転の角度と軸
 			1.0f
 		);
 	}

@@ -56,7 +56,7 @@ namespace CF
     /// <returns>o‚Ä‚¢‚ê‚Îtrue,o‚Ä‚¢‚È‚¯‚ê‚Îfalse</returns>
     bool PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
 
-    float ChangeVectorToAngle(SimpleMath::Vector2 vector);
+    float ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle);
 
     /// <summary>
     /// -‚ğ+‚É‚·‚é
