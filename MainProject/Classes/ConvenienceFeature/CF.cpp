@@ -79,6 +79,36 @@ bool CF::PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 wid
 	return isOver;
 }
 
+float CF::ChangeVectorToAngle(SimpleMath::Vector2 vector)
+{
+	//ベクトルのXとYの合計を計算(マイナスは含めず自然数のみ）
+	float total = MinusToPlusf(vector.x) + MinusToPlusf(vector.y);
+	//合計から元のVectorを割り割合を計算
+	SimpleMath::Vector2 calculationVector = vector / total;
+	float angle;
+	if (vector.y >= 0.0f)
+	{
+		//上方向に進むのであれば真横から真上を向くように
+		angle = (vector.y * 90.0f) + 90.0f;
+	}
+	else
+	{
+		//下方向ならば真横から真下を向くように
+		angle = vector.x * 90.0f;
+	}
+	if (vector.x >= 0.0f)
+	{
+		//向かう方向が右方向なら角度をマイナスに
+		angle = -angle;
+	}
+	else if(angle < 0.0f)
+	{
+		//向かう方向が左方向かつ覚悟がマイナスなのであればplusに
+		angle = angle*-1;
+	}
+	return angle;
+}
+
 float CF::MinusToPlusf(float minus)
 {
 	if (minus < 0.0f)
