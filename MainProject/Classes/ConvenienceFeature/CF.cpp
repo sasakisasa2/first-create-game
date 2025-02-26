@@ -81,10 +81,18 @@ bool CF::PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 wid
 
 float CF::MinusToPlusf(float minus)
 {
-	return 0.0f;
+	if (minus < 0.0f)
+	{
+		minus = minus * -1.0f;
+	}
+	return minus;
 }
 
 int CF::MinusToPlus(int minus)
 {
-	return 0;
+	if (minus < 0)
+	{
+		minus = minus * -1;
+	}
+	return minus;
 }
