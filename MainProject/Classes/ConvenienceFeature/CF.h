@@ -58,6 +58,17 @@ namespace CF
 
     float ChangeVectorToAngle(SimpleMath::Vector2 vector);
 
+    /// <summary>
+    /// -‚ğ+‚É‚·‚é
+    /// </summary>
+    /// <param name="minus">float‚Ì•Ï”</param>
+    /// <returns>-‚Ìê‡‚Í+‚ÉA+‚Ìê‡‚Í‚»‚Ì‚Ü‚Ü</returns>
     float MinusToPlusf(float minus);
+
+    /// <summary>
+    /// -‚ğ+‚É‚·‚é
+    /// </summary>
+    /// <param name="minus">int‚Ì•Ï”</param>
+    /// <returns>-‚Ìê‡‚Í+‚ÉA+‚Ìê‡‚Í‚»‚Ì‚Ü‚Ü</returns>
     int MinusToPlus(int minus);
 }
