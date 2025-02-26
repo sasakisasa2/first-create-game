@@ -55,4 +55,9 @@ namespace CF
     /// <param name="Height">YÀ•W‚Ì”ÍˆÍ</param>
     /// <returns>o‚Ä‚¢‚ê‚Îtrue,o‚Ä‚¢‚È‚¯‚ê‚Îfalse</returns>
     bool PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
+
+    float ChangeVectorToAngle(SimpleMath::Vector2 vector);
+
+    float MinusToPlusf(float minus);
+    int MinusToPlus(int minus);
 }
