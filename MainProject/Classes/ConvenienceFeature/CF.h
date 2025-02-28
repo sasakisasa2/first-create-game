@@ -64,6 +64,11 @@ namespace CF
     /// <returns>ŒvŽZŒã‚ÌŠp“x</returns>
     float ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle);
 
+    /// <summary>
+    /// Šp“x‚©‚ç•ûŒü‚ðŒvŽZ‚µ‚Ä•Ô‚·
+    /// </summary>
+    /// <param name="angle">Šp“x</param>
+    /// <returns>•ûŒü</returns>
     SimpleMath::Vector2 ChangeAngleToVector(float angle);
 
     /// <summary>
