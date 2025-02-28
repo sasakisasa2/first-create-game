@@ -111,6 +111,40 @@ float CF::ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle)
 	return setAngle;
 }
 
+SimpleMath::Vector2 CF::ChangeAngleToVector(float angle)
+{
+	const float CIRCLE = 360;
+	const float QUARTER_CIRCLE = 90;
+	SimpleMath::Vector2 vector;
+	float newAngle = MinusToPlusf(angle);
+	while(newAngle > CIRCLE)
+	{
+		newAngle -= CIRCLE;
+	}
+	float fraction = newAngle / QUARTER_CIRCLE;
+	if (fraction <= 1.0f)
+	{
+		vector = SimpleMath::Vector2(fraction,1.0f- fraction);
+	}
+	else if(fraction <= 2.0f)
+	{
+		float angleFraction = fraction - 1.0f;
+		vector = SimpleMath::Vector2(1.0f - angleFraction, angleFraction * -1.0f);
+	}
+	else if (fraction <= 3.0f)
+	{
+		float angleFraction = fraction - 2.0f;
+		vector = SimpleMath::Vector2(angleFraction * -1.0f, 1.0f - angleFraction);
+	}
+	else
+	{
+		float angleFraction = fraction - 3.0f;
+		vector = SimpleMath::Vector2(1.0f - angleFraction, angleFraction);
+	}
+	if (angle < 0.0f) { vector.x = vector.x * -1; }
+	return vector;
+}
+
 float CF::MinusToPlusf(float minus)
 {
 	if (minus < 0.0f)
