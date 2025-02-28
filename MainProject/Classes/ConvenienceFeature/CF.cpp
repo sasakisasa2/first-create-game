@@ -113,8 +113,14 @@ float CF::ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle)
 
 SimpleMath::Vector2 CF::ChangeAngleToVector(float angle)
 {
+	//ŒvŽZ‚Ìˆ×‚Ì’è”
 	const float CIRCLE = 360;
 	const float QUARTER_CIRCLE = 90;
+	const float ONE   = 1;
+	const float TWO   = 2;
+	const float THREE = 3;
+	const float FOUR  = 4;
+
 	SimpleMath::Vector2 vector;
 	float newAngle = MinusToPlusf(angle);
 	while(newAngle > CIRCLE)
@@ -122,26 +128,26 @@ SimpleMath::Vector2 CF::ChangeAngleToVector(float angle)
 		newAngle -= CIRCLE;
 	}
 	float fraction = newAngle / QUARTER_CIRCLE;
-	if (fraction <= 1.0f)
+	if (fraction <= ONE)
 	{
-		vector = SimpleMath::Vector2(fraction,1.0f- fraction);
+		vector = SimpleMath::Vector2(fraction,ONE- fraction);
 	}
-	else if(fraction <= 2.0f)
+	else if(fraction <= TWO)
 	{
-		float angleFraction = fraction - 1.0f;
-		vector = SimpleMath::Vector2(1.0f - angleFraction, angleFraction * -1.0f);
+		float angleFraction = fraction - ONE;
+		vector = SimpleMath::Vector2(ONE - angleFraction, angleFraction * -ONE);
 	}
-	else if (fraction <= 3.0f)
+	else if (fraction <= THREE)
 	{
-		float angleFraction = fraction - 2.0f;
-		vector = SimpleMath::Vector2(angleFraction * -1.0f, 1.0f - angleFraction);
+		float angleFraction = fraction - TWO;
+		vector = SimpleMath::Vector2(angleFraction * -ONE, ONE - angleFraction);
 	}
 	else
 	{
-		float angleFraction = fraction - 3.0f;
-		vector = SimpleMath::Vector2(1.0f - angleFraction, angleFraction);
+		float angleFraction = fraction - THREE;
+		vector = SimpleMath::Vector2(ONE - angleFraction, angleFraction);
 	}
-	if (angle < 0.0f) { vector.x = vector.x * -1; }
+	if (angle < 0.0f) { vector.x = vector.x * -ONE; }
 	return vector;
 }
 
