@@ -122,31 +122,46 @@ SimpleMath::Vector2 CF::ChangeAngleToVector(float angle)
 	const float FOUR  = 4;
 
 	SimpleMath::Vector2 vector;
+
+	//マイナスを無くした角度
 	float newAngle = MinusToPlusf(angle);
+
+	//計算用に角度を360度以内に
 	while(newAngle > CIRCLE)
 	{
 		newAngle -= CIRCLE;
 	}
+
+	//角度を90度で割り4以下に(0-90,90-180,180-270,270-360で計算するため）
 	float fraction = newAngle / QUARTER_CIRCLE;
+
+	//x+yの合計が１になるように計算
+	//0-90の間で計算
 	if (fraction <= ONE)
 	{
+		//下から右へ減らしていくためyを減らしていく
 		vector = SimpleMath::Vector2(fraction,ONE- fraction);
 	}
 	else if(fraction <= TWO)
 	{
+		//右から上へ減らしていくためxを減らし、上なのでyを-に
 		float angleFraction = fraction - ONE;
 		vector = SimpleMath::Vector2(ONE - angleFraction, angleFraction * -ONE);
 	}
 	else if (fraction <= THREE)
 	{
+		//上から左へ減らしていくためyを減らし、左なのでxを-に、上なのでyをマイナスに
 		float angleFraction = fraction - TWO;
-		vector = SimpleMath::Vector2(angleFraction * -ONE, ONE - angleFraction);
+		vector = SimpleMath::Vector2(angleFraction * -ONE, (ONE - angleFraction) * -ONE);
 	}
 	else
 	{
+		//左から下へ減らしていくためxを減らし、左なのでxを-に
 		float angleFraction = fraction - THREE;
-		vector = SimpleMath::Vector2(ONE - angleFraction, angleFraction);
+		vector = SimpleMath::Vector2((ONE - angleFraction) * -ONE, angleFraction);
 	}
+
+	//角度がマイナスの場合x方向を逆に
 	if (angle < 0.0f) { vector.x = vector.x * -ONE; }
 	return vector;
 }
