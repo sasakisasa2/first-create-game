@@ -8,7 +8,7 @@ using namespace SimpleMath;
 class CollisionInfo
 {
 private:
-	:Vector2 squareCorner[4];
+	Vector2 squareCorner[4];
 public:
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìˆ×‚ÌˆÊ’u•Û‘¶—p

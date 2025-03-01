@@ -19,6 +19,7 @@
 #include"..\MainProject\Base\dxtk.h"
 using namespace DirectX;
 using namespace SimpleMath;
+using namespace CF;
 
 class BitManager 
 {
@@ -92,12 +93,4 @@ public:
 	/// <param name="spriteBarch">SpriteBatch   </param>
 	/// <param name="count">      何回描画するか</param>
 	void Render(DirectX::SpriteBatch* spriteBarch, int count);
-	/// <summary>
-	/// 角度を参照し座標を動かす関数
-	/// </summary>
-	/// <param name="theta">		 プレイヤーからの角度(真下が0度,真上が180度)</param>
-	/// <param name="centerPosition">中心座標									</param>
-	/// <param name="distance">		 中心座標からの距離						    </param>
-	/// <returns>					 動かした後の座標							</returns>
-	Vector2 SquareMovement(float theta, Vector2 centerPosition, float distance);
 };

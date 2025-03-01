@@ -103,4 +103,14 @@ namespace CF
     /// <param name="size">サイズ</param>
     /// <returns>角への角度</returns>
     SimpleMath::Vector2 RectangleCornerAngle(SimpleMath::Vector2 size);
+
+    /// <summary>
+    /// 角度を参照し座標を動かす関数
+    /// </summary>
+    /// <param name="theta">		 角度(真下が0度,真上が180度)</param>
+    /// <param name="centerPosition">中心座標					</param>
+    /// <param name="distance">		 中心座標からの距離			</param>
+    /// <returns>					 動かした後の座標			</returns>
+    SimpleMath::Vector2 SquareMovement(float theta, SimpleMath::Vector2 position, float distance);
+
 }

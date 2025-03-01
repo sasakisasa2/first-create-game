@@ -200,3 +200,14 @@ SimpleMath::Vector2 CF::RectangleCornerAngle(SimpleMath::Vector2 size)
 	//割合に応じた角度をかけて中心点から角への角度を返す
 	return ratio * ratioAngle;
 }
+
+SimpleMath::Vector2 CF::SquareMovement(float theta, SimpleMath::Vector2 centerPosition, float distance)
+{
+	//指定された角度を関数用に値を設定
+	double angle = theta / 57.295791f;
+	SimpleMath::Vector2 differencePosition;
+	//座標を参照し位置を移動
+	differencePosition.x = centerPosition.x + distance * cos(angle);
+	differencePosition.y = centerPosition.y + distance * sin(angle);
+	return differencePosition;
+}
