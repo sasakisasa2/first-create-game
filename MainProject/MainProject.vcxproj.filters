@@ -235,7 +235,7 @@
     <ClInclude Include="Classes\Enamy\Boss\BossHp.h">
       <Filter>Classes\Enemy\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\collision\CollisionInfo\ColisionInfo.h">
+    <ClInclude Include="Classes\collision\CollisionInfo\CollisionInfo.h">
       <Filter>Classes\Collision\CollisionInfo</Filter>
     </ClInclude>
   </ItemGroup>
