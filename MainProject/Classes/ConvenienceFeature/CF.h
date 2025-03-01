@@ -3,9 +3,8 @@
 #include"..\MainProject\Base\pch.h"
 #include"..\MainProject\Base\dxtk.h"
 
-
-
 using namespace DirectX;
+
 namespace CF 
 {
 	class Timer
@@ -27,15 +26,8 @@ namespace CF
         /// <returns>Žw’èŽžŠÔ‚É’B‚·‚ê‚Îtrue,‚»‚¤‚Å‚È‚¯‚ê‚Îfalse</returns>
         bool TimeMeasurement(float timeLimit);
 	};
-    class Random 
-    {
-    private:
-        std::mt19937 random;
-    public:
-        Random();
-        float SetRandomf(SimpleMath::Vector2 randamRange);
-        int SetRandom(SimpleMath::Vector2 randamRange);
-    };
+    float SetRandomf(SimpleMath::Vector2 randamRange);
+    int   SetRandom(SimpleMath::Vector2 randamRange);
 
     /// <summary>
     /// “ñ“_ŠÔ‚Ì‹——£‚ð‘ª‚é

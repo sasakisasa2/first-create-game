@@ -18,23 +18,22 @@ bool CF::Timer::TimeMeasurement(float timeLimit)
 	return false;
 }
 
-CF::Random::Random()
+
+float CF::SetRandomf(SimpleMath::Vector2 randomRange)
 {
 	std::random_device rd;
-	random = std::mt19937(rd());
-}
-
-float CF::Random::SetRandomf(SimpleMath::Vector2 randamRange)
-{
+	std::mt19937 random = std::mt19937(rd());
 	std::uniform_real_distribution<float> other;
-	other = std::uniform_real_distribution<float>(randamRange.x, randamRange.y);
+	other = std::uniform_real_distribution<float>(randomRange.x, randomRange.y);
 	return other(random);
 }
 
-int CF::Random::SetRandom(SimpleMath::Vector2 randamRange)
+int CF::SetRandom(SimpleMath::Vector2 randomRange)
 {
+	std::random_device rd;
+	std::mt19937 random = std::mt19937(rd());
 	std::uniform_real_distribution<float> other;
-	other = std::uniform_real_distribution<float>(randamRange.x, randamRange.y);
+	other = std::uniform_real_distribution<float>(randomRange.x, randomRange.y);
 	return (int)other(random);
 }
 
