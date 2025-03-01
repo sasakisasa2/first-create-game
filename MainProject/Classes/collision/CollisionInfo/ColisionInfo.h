@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"..\MainProject\Base\dxtk.h"
 #include"..\MainProject\Base\pch.h"
 
@@ -11,20 +11,39 @@ private:
 	Vector2 squareCorner[4];
 public:
 	/// <summary>
-	/// �����蔻��ׂ̈̈ʒu�ۑ��p
+	/// 当たり判定の為の位置保存用
 	/// </summary>
-	/// <param name="position">�ʒu</param>
-	/// <param name="vector">����������</param>
-	void SetSquareCorner(Vector2 position, Vector2 vector, Vector2 size, float angle, float speed)
+	/// <param name="position"位置></param>
+	/// <param name="size">サイズ</param>
+	/// <param name="angle">向いてる角度</param>
+	/// <param name="speed">速度</param>
+	void SetSquareCorner(Vector2 position, Vector2 size, float angle, float speed)
 	{
-		//�v�Z�p�萔
+		//計算用定数
 		const float   NINETY = 90;
 		const float   MINUS  = -1;
 		const Vector2 SIZE_HALF = size / 2;
 
-		//�T�C�Y����t�Z�����p�ւ̊p�x
+		//1F後の位置
+		const Vector2 ONE_FRAME_POSITION = position + (CF::ChangeAngleToVector(angle) * speed);
+
+		//サイズから逆算した角への角度
 		const Vector2 CORNER_ANGLE = CF::RectangleCornerAngle(SIZE_HALF);
-		//�p�ւ̋���
+		//ここ→︻   への角度
+		const float ANGLE_ONE   = angle + (NINETY + CORNER_ANGLE.x);
+		//ここ→︼   への角度
+		const float ANGLE_TWO   = angle - (NINETY + CORNER_ANGLE.x);
+		//︻←ここ   への角度
+		const float ANGLE_THREE = angle + CORNER_ANGLE.y;
+		//︼←ここ   への角度
+		const float ANGLE_FOUR  = angle - CORNER_ANGLE.y;
+
+		//角への距離
 		const float RADIUS = CF::Distance(Vector2(SIZE_HALF.x,0.0f), Vector2(0.0f,SIZE_HALF.y));
+
+		squareCorner[0] = CF::SquareMovement(ANGLE_ONE  , position          , RADIUS);
+		squareCorner[1] = CF::SquareMovement(ANGLE_TWO  , position          , RADIUS);
+		squareCorner[2] = CF::SquareMovement(ANGLE_THREE, ONE_FRAME_POSITION, RADIUS);
+		squareCorner[3] = CF::SquareMovement(ANGLE_FOUR , ONE_FRAME_POSITION, RADIUS);
 	}
 };
