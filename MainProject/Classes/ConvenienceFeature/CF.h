@@ -85,5 +85,10 @@ namespace CF
     /// <returns>-の場合は+に、+の場合はそのまま</returns>
     int MinusToPlus(int minus);
 
+    /// <summary>
+    /// 中心点から角への角度を求める
+    /// </summary>
+    /// <param name="size">サイズ</param>
+    /// <returns>角への角度</returns>
     SimpleMath::Vector2 RectangleCornerAngle(SimpleMath::Vector2 size);
 }

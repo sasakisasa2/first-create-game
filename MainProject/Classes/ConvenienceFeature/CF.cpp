@@ -186,12 +186,16 @@ int CF::MinusToPlus(int minus)
 
 SimpleMath::Vector2 CF::RectangleCornerAngle(SimpleMath::Vector2 size)
 {
+	//定数の計算用
 	const float ANGLE = 90;
 	const float ONE   = 1;
 
+	//サイズの割合を計算
 	SimpleMath::Vector2 ratio = SimpleMath::Vector2(size.x / size.y, ONE);
 
+	//割合に応じた角度を計算
 	float ratioAngle = ANGLE / (ratio.x + ratio.y);
 
+	//割合に応じた角度をかけて中心点から角への角度を返す
 	return ratio * ratioAngle;
 }
