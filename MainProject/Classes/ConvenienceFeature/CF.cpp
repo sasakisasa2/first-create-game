@@ -183,3 +183,10 @@ int CF::MinusToPlus(int minus)
 	}
 	return minus;
 }
+
+SimpleMath::Vector2 CF::RectangleCornerAngle(SimpleMath::Vector2 size)
+{
+
+
+	return SimpleMath::Vector2();
+}

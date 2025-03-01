@@ -64,6 +64,11 @@ namespace CF
     /// <returns>ŒvZŒã‚ÌŠp“x</returns>
     float ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle);
 
+    /// <summary>
+    /// Šp“x‚©‚ç•ûŒü‚ğŒvZ‚µ‚Ä•Ô‚·
+    /// </summary>
+    /// <param name="angle">Šp“x</param>
+    /// <returns>•ûŒü</returns>
     SimpleMath::Vector2 ChangeAngleToVector(float angle);
 
     /// <summary>
@@ -79,4 +84,6 @@ namespace CF
     /// <param name="minus">int‚Ì•Ï”</param>
     /// <returns>-‚Ìê‡‚Í+‚ÉA+‚Ìê‡‚Í‚»‚Ì‚Ü‚Ü</returns>
     int MinusToPlus(int minus);
+
+    SimpleMath::Vector2 RectangleCornerAngle(SimpleMath::Vector2 size);
 }
