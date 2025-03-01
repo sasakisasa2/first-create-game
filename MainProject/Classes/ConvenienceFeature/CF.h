@@ -11,11 +11,13 @@ namespace CF
     {
     private:
         float time;
-
     public:
         Timer();
 
-        void TimerReSet();//初期化
+        /// <summary>
+        /// 時間の初期化
+        /// </summary>
+        void TimerReSet();
 
         /// <summary>
         /// 指定時間に達したか調べる(毎フレーム呼び出しで使ってください）
