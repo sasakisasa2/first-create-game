@@ -39,6 +39,7 @@ int CF::SetRandom(SimpleMath::Vector2 randomRange)
 
 SimpleMath::Vector2 CF::DistanceCount(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo)
 {
+	//‹——£‚ÌŒv‘ª	
 	float distance = sqrt((positionOne.x - positionTwo.x) *
 					      (positionOne.x - positionTwo.x) +
 						  (positionOne.y - positionTwo.y) *
@@ -49,10 +50,11 @@ SimpleMath::Vector2 CF::DistanceCount(SimpleMath::Vector2 positionOne, SimpleMat
 
 float CF::Distance(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo)
 {
+	//‹——£‚ÌŒv‘ª	
 	float distance = sqrt((positionOne.x - positionTwo.x) *
-		(positionOne.x - positionTwo.x) +
-		(positionOne.y - positionTwo.y) *
-		(positionOne.y - positionTwo.y));
+						  (positionOne.x - positionTwo.x) +
+						  (positionOne.y - positionTwo.y) *
+						  (positionOne.y - positionTwo.y));
 	return distance;
 }
 

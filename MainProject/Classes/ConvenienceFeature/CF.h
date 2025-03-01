@@ -42,13 +42,19 @@ namespace CF
     int   SetRandom(SimpleMath::Vector2 randamRange);
 
     /// <summary>
-    /// 二点間の距離を測る
+    /// 二点間の方向を計算する
     /// </summary>
-    /// <param name="position"></param>
-    /// <param name="otherPosition"></param>
+    /// <param name="positionOne"></param>
+    /// <param name="positionTwo"></param>
     /// <returns>二点間の方向</returns>
     SimpleMath::Vector2 DistanceCount(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo);
 
+    /// <summary>
+    /// 二点間の距離を測る
+    /// </summary>
+    /// <param name="positionOne"></param>
+    /// <param name="positionTwo"></param>
+    /// <returns>二点間の距離</returns>
     float Distance(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo);
 
     /// <summary>
