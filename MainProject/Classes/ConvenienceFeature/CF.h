@@ -26,7 +26,19 @@ namespace CF
         /// <returns>指定時間に達すればtrue,そうでなければfalse</returns>
         bool TimeMeasurement(float timeLimit);
 	};
+
+    /// <summary>
+    /// 指定した範囲内でランダムな値を返す(float)
+    /// </summary>
+    /// <param name="randomRange">範囲</param>
+    /// <returns>範囲内の値</returns>
     float SetRandomf(SimpleMath::Vector2 randamRange);
+
+    /// <summary>
+    /// 指定した範囲内でランダムな値を返す(int)
+    /// </summary>
+    /// <param name="randomRange">範囲</param>
+    /// <returns>範囲内の値</returns>
     int   SetRandom(SimpleMath::Vector2 randamRange);
 
     /// <summary>
