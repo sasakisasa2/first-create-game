@@ -175,15 +175,10 @@ void Bullet::Shot()
 
 void Bullet::ShotBlue(int wayCount,int bulletCount)
 {
-	if (wayCount <= wayHalf) 
-	{
 		//ê^ÇÒíÜÇ∆è„ï˚å¸ÇÃWAY
 		position[wayCount + bulletCount] += shotVector[wayCount + bulletCount] * DXTK->Time.deltaTime;
-	}
-	else 
-	{
-		//â∫ï˚å¸ÇÃWAY
-		position[wayCount + bulletCount] += shotVector[wayCount + bulletCount] * DXTK->Time.deltaTime;	}
+		//äpìxÇÃê›íË
+		angle = CF::ChangeVectorToAngle(shotVector[wayCount + bulletCount], angle);
 }
 
 void Bullet::ShotRed (int wayCount,int bulletCount)

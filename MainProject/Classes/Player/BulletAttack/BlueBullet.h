@@ -113,4 +113,8 @@ public:
 		int     otherWay
 	);
 #pragma endregion
+
+	Vector2 GetShotPosition(int positionNumber){ return position[positionNumber]; }
+
+	Vector2 GetShotVector(int vectorNumber){ return shotVector[vectorNumber]; }
 };
