@@ -26,6 +26,13 @@ void Player::Update()
 
     attack.		  Update(playerPosition);
 	colliderSprite.Update(playerPosition);
+
+	const int THREE = 3;
+	playerCollisionInfo.SetSquareCorner(playerPosition, 
+		Vector2(GetSpriteSize() / THREE, GetSpriteSize() / THREE),
+		move.GetVector(),
+		move.GetAngle(), 
+		GetMoveSpeed());
 }
 
 void Player::Render(DirectX::SpriteBatch* SpriteBatch) 
