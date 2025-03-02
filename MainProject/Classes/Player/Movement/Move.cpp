@@ -50,11 +50,6 @@ void  Move::Update()
 	position[0]  = PositionScreenOver(position[0]);
 }
 
-SimpleMath::Vector2 Move::ReturnPlayerPosition() 
-{
-	return position[0];
-}
-
 Vector2 Move::MoveWASD(Vector2 move)
 {
 	if (InputSystem.Keyboard.isPressed.D) { move += Vector2( 1.0f, 0.0f); }//‰EˆÚ“®

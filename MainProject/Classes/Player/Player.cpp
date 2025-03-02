@@ -22,7 +22,7 @@ void Player::Initialize()
 void Player::Update() 
 {
 	move.		  Update();
-	playerPosition = move.ReturnPlayerPosition();
+	playerPosition = move.GetPlayerPosition();
 
     attack.		  Update(playerPosition);
 	colliderSprite.Update(playerPosition);

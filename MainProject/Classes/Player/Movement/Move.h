@@ -26,7 +26,7 @@ public:
     void Initialize();
     void Update();
 
-    Vector2 ReturnPlayerPosition();
+    Vector2 GetPlayerPosition() { return position[0];};
 private:
     Vector2 MoveWASD(Vector2) ;
     Vector2 MoveArrow(Vector2);
