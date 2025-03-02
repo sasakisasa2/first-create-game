@@ -178,7 +178,7 @@ void Bullet::ShotBlue(int wayCount,int bulletCount)
 		//ê^ÇÒíÜÇ∆è„ï˚å¸ÇÃWAY
 		position[wayCount + bulletCount] += shotVector[wayCount + bulletCount] * DXTK->Time.deltaTime;
 		//äpìxÇÃê›íË
-		angle = CF::ChangeVectorToAngle(shotVector[wayCount + bulletCount], angle);
+		angle[wayCount + bulletCount] = CF::ChangeVectorToAngle(shotVector[wayCount + bulletCount], angle[wayCount + bulletCount]);
 }
 
 void Bullet::ShotRed (int wayCount,int bulletCount)

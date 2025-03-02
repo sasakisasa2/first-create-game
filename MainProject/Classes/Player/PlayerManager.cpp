@@ -3,7 +3,7 @@
 
 #include"..\MainProject\Scenes\DontDestroyOnLoad.h"
 	//値の変更はここで
-PlayerManager::PlayerManager() : position(PLAYER_ATTACK_MAX+3,SimpleMath::Vector2(300,300))
+PlayerManager::PlayerManager() : position(PLAYER_ATTACK_MAX+3,SimpleMath::Vector2(300,300)),angle(PLAYER_ATTACK_MAX,0.0f)
 {
 	color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	SetAttribute       (DontDestroy->attackAttribute);
@@ -149,7 +149,7 @@ void PlayerManager::Render(DirectX::SpriteBatch* spriteBatch, int count)
 			sprite.handle, sprite.size, position[number],
 			nullptr,//画像のどこに表示するか
 			color,//色の間引き方(カラーマスク)
-			angle * Mathf::Deg2Rad, SimpleMath::Vector2(sprite.size.x / 2, sprite.size.y / 2),//回転の角度と軸
+			angle[number] * Mathf::Deg2Rad, SimpleMath::Vector2(sprite.size.x / 2, sprite.size.y / 2),//回転の角度と軸
 			1.0f
 		);
 	}

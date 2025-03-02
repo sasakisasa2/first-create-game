@@ -41,7 +41,7 @@ void  Move::Update()
 	
 	const float NINTY = 90;
 
-	angle = NINTY;
+	angle[0] = NINTY;
 	
 	//ˆÚ“®
 	position[0] += moveVector * GetMoveSpeed() * DXTK->Time.deltaTime;

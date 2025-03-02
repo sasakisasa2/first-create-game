@@ -33,6 +33,18 @@ void Player::Update()
 		move.GetVector(),
 		move.GetAngle(), 
 		GetMoveSpeed());
+
+	for (int bulletNumber = 0; bulletNumber < PLAYER_ATTACK_MAX; bulletNumber++)
+	{
+		if (attack.GetIsShot(bulletNumber))
+		{
+			attackCollisionInfo[bulletNumber].SetSquareCorner(playerPosition,
+				GetAttackSpriteSize(),
+				attack.GetShotVector(bulletNumber),
+				attack.GetBulletAngle(bulletNumber),
+				GetAttackSpeed());
+		}
+	}
 }
 
 void Player::Render(DirectX::SpriteBatch* SpriteBatch) 

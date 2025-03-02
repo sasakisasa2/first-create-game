@@ -115,9 +115,7 @@ public:
 #pragma endregion
 
 	Vector2 GetShotPosition(int positionNumber){ return position[positionNumber]; }
-
-	Vector2 GetShotVector(int vectorNumber){ return shotVector[vectorNumber]; }
-
-	bool GetIsShot(int isShotNumber) { return isShot[isShotNumber]; }
-
+	float   GetBulletAngle(int bulletNumber)   { return angle[bulletNumber]; }
+	Vector2 GetShotVector(int vectorNumber)    { return shotVector[vectorNumber]; }
+	bool    GetIsShot(int isShotNumber)        { return isShot[isShotNumber]; }
 };
