@@ -26,8 +26,11 @@ public:
     void Initialize();
     void Update();
 
+    float   GetAngle()  { return angle; }
+    Vector2 GetVector() { return moveVector; }
     Vector2 GetPlayerPosition() { return position[0];};
 private:
+    Vector2 moveVector;
     Vector2 MoveWASD(Vector2) ;
     Vector2 MoveArrow(Vector2);
 #pragma region ŽÀ‘•‚·‚é‚©‚à

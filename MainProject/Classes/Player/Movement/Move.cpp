@@ -4,7 +4,6 @@ using namespace SimpleMath;
 
 void  Move::Initialize()
 {
-
 	//プレイヤーサイズ
 	sprite.size.x = GetSpriteSize();
 	sprite.size.y = GetSpriteSize();
@@ -12,10 +11,9 @@ void  Move::Initialize()
 
 void  Move::Update()
 {
-
-	Vector2 move = Vector2::Zero;	
-	move = Move::MoveWASD (move);
-	move = Move::MoveArrow(move);
+	moveVector = Vector2::Zero;
+	moveVector = Move::MoveWASD (moveVector);
+	moveVector = Move::MoveArrow(moveVector);
 
 #pragma region 実装するかも
 	////ダッシュの加速
@@ -39,12 +37,14 @@ void  Move::Update()
 	//	}
 	//}
 #pragma endregion
-	move.Normalize();
+	moveVector.Normalize();
 	
-	angle = CF::ChangeVectorToAngle(move, angle);
+	const float NINTY = 90;
+
+	angle = NINTY;
 	
 	//移動
-	position[0] += move * GetMoveSpeed() * DXTK->Time.deltaTime;
+	position[0] += moveVector * GetMoveSpeed() * DXTK->Time.deltaTime;
 
 	//画面外に出たか確認
 	position[0]  = PositionScreenOver(position[0]);
