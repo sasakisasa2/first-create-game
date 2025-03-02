@@ -117,4 +117,7 @@ public:
 	Vector2 GetShotPosition(int positionNumber){ return position[positionNumber]; }
 
 	Vector2 GetShotVector(int vectorNumber){ return shotVector[vectorNumber]; }
+
+	bool GetIsShot(int isShotNumber) { return isShot[isShotNumber]; }
+
 };
