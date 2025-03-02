@@ -17,6 +17,7 @@
 #pragma once
 #include "..\MainProject\Base\pch.h"
 #include "..\MainProject\Base\dxtk.h"
+#include"PlayerManager.h"
 #include"..\MainProject\Classes\Player\Movement\Move.h"
 #include"..\MainProject\Classes\Player\BulletAttack\BlueBullet.h"
 #include"..\MainProject\Classes\Player\PlayerColider\PlayerColider.h"
@@ -24,7 +25,7 @@
 
 using namespace DirectX;
 
-class Player 
+class Player :public PlayerManager
 {
 private:
 
@@ -35,7 +36,7 @@ private:
 
 public:
     CollisionInfo playerCollisionInfo;
-    CollisionInfo attackCollisionInfo;
+    CollisionInfo attackCollisionInfo[PLAYER_ATTACK_MAX];
 
     SimpleMath::Vector2 GetPlayerPosition() { return playerPosition; }
 
