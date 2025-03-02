@@ -27,7 +27,9 @@ void Player::Update()
     attack.		  Update(playerPosition);
 	colliderSprite.Update(playerPosition);
 
-	const int THREE = 3;
+	const int   THREE = 3;
+	const float ONE   = 1;
+
 	playerCollisionInfo.SetSquareCorner(playerPosition, 
 		Vector2(GetSpriteSize() / THREE, GetSpriteSize() / THREE),
 		move.GetVector(),
@@ -42,7 +44,7 @@ void Player::Update()
 				GetAttackSpriteSize(),
 				attack.GetShotVector(bulletNumber),
 				attack.GetBulletAngle(bulletNumber),
-				GetAttackSpeed());
+				ONE);
 		}
 	}
 }
