@@ -30,7 +30,7 @@ void  Bullet::Initialize()
 
 	for (int i = 0; i < PLAYER_ATTACK_MAX; i++)
 	{
-		attackFlag[i] = false;
+		isShot[i] = false;
 	}
 }
 
@@ -39,7 +39,7 @@ void Bullet::OtherInitialize(Vector2 size, float interval, float speed, float wa
 {
 	for (int i = 0; i < PLAYER_ATTACK_MAX; i++)
 	{
-		attackFlag[i] = false;
+		isShot[i] = false;
 	}
 //*****************************************************
 //値設定
@@ -108,7 +108,7 @@ void Bullet::Preparation()
 	for (int i = 0; i < PLAYER_ATTACK_MAX; i += GetAttackWay())
 	{
 		//指定時間経てば撃ち始める
-		if (!attackFlag[i])
+		if (!isShot[i])
 		{
 			//自分の属性の弾の準備
 			if (GetAttribute() == 1) { Bullet::BluePreparation(i); }
@@ -125,7 +125,7 @@ void Bullet::BluePreparation(int bulletNumber)
 	for (int j = 0; j < GetAttackWay(); j++)
 	{
 		position  [bulletNumber + j] = GetPosition();
-		attackFlag[bulletNumber + j] = true;
+		isShot[bulletNumber + j] = true;
 	}
 }
 
@@ -150,7 +150,7 @@ void Bullet::RedPreparation (int bulletNumber)
 				        GetPosition().y - (GetAttackWayY() * (j - wayHalf))
 					    );
 		}
-		attackFlag[j + bulletNumber] = true;
+		isShot[j + bulletNumber] = true;
 	}
 }
 
@@ -164,7 +164,7 @@ void Bullet::Shot()
 		for (int j = 0; j < GetAttackWay(); j++)
 		{
 			//自身の属性の弾を打ち出す
-			if (attackFlag[j + i])
+			if (isShot[j + i])
 			{
 				if (GetAttribute() == 1){ Bullet::ShotBlue(j, i);}
 				if (GetAttribute() == 2){ Bullet::ShotRed (j, i);}
@@ -192,9 +192,9 @@ void Bullet::BulletReturn()
 	{
 		if (position[i].x >= DXTK->Screen.Width+(sprite.size.x/2))
 		{
-			attackFlag[i] = false;
+			isShot[i] = false;
 		}
-		if (!attackFlag[i]) 
+		if (!isShot[i]) 
 		{
 			position[i] = Vector2(-100, -100);
 		}

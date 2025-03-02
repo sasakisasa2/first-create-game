@@ -27,7 +27,7 @@ private:
 
 	Vector2 shotVector[PLAYER_ATTACK_MAX];//Œ‚‚Â•ûŒü
 	int     wayHalf;					  //WAY”‚Ì”¼•ª
-	bool    attackFlag[PLAYER_ATTACK_MAX];//UŒ‚‚·‚é‚©‚Ç‚¤‚©
+	bool    isShot[PLAYER_ATTACK_MAX];//UŒ‚‚·‚é‚©‚Ç‚¤‚©
 
 #pragma region UŒ‚€”õ—pŠÖ”
 	/// <summary>
