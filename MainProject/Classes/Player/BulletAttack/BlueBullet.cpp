@@ -2,6 +2,27 @@
 using namespace CF;
 using namespace SimpleMath;
 
+Bullet::Bullet()
+{
+	const float MINUS = -1;
+	for (int bulletCount = 0; bulletCount < PLAYER_ATTACK_MAX; bulletCount += GetAttackWay())
+	{
+		for (int wayCount = 0; wayCount < GetAttackWay(); wayCount++)
+		{
+			if (wayCount <= wayHalf)
+			{
+				//^‚ñ’†‚Æã•ûŒü‚ÌWAY
+				shotVector[wayCount + bulletCount] = Vector2(GetAttackSpeed(), GetAttackWayY() * wayCount);
+			}
+			else
+			{
+				//‰º•ûŒü‚ÌWAY
+				shotVector[wayCount + bulletCount] = Vector2(GetAttackSpeed(), (GetAttackWayY() * (wayCount - wayHalf))* MINUS);
+			}
+		}
+	}
+}
+
 void  Bullet::Initialize()
 {
 	sprite.size.x = GetAttackSpriteSize().x;
@@ -157,15 +178,12 @@ void Bullet::ShotBlue(int wayCount,int bulletCount)
 	if (wayCount <= wayHalf) 
 	{
 		//^‚ñ’†‚Æã•ûŒü‚ÌWAY
-		position[wayCount + bulletCount].x += GetAttackSpeed() * DXTK->Time.deltaTime;
-		position[wayCount + bulletCount].y += GetAttackWayY()  * wayCount * DXTK->Time.deltaTime;
+		position[wayCount + bulletCount] += shotVector[wayCount + bulletCount] * DXTK->Time.deltaTime;
 	}
 	else 
 	{
 		//‰º•ûŒü‚ÌWAY
-		position[wayCount + bulletCount].x += GetAttackSpeed() * DXTK->Time.deltaTime;
-		position[wayCount + bulletCount].y -= GetAttackWayY()  * (wayCount - wayHalf) * DXTK->Time.deltaTime;
-	}
+		position[wayCount + bulletCount] += shotVector[wayCount + bulletCount] * DXTK->Time.deltaTime;	}
 }
 
 void Bullet::ShotRed (int wayCount,int bulletCount)
@@ -187,3 +205,4 @@ void Bullet::BulletReturn()
 		}
 	}
 }
+

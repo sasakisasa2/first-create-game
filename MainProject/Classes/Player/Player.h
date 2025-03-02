@@ -20,17 +20,23 @@
 #include"..\MainProject\Classes\Player\Movement\Move.h"
 #include"..\MainProject\Classes\Player\BulletAttack\BlueBullet.h"
 #include"..\MainProject\Classes\Player\PlayerColider\PlayerColider.h"
+#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
 
 using namespace DirectX;
 
 class Player 
 {
 private:
+
     SimpleMath::Vector2 playerPosition;
-    Move    move         ;
-    Bullet  attack       ;
-    Colider coliderSprite;
+    Move    move;
+    Bullet  attack;
+    Colider colliderSprite;
+
 public:
+    CollisionInfo playerCollisionInfo;
+    CollisionInfo attackCollisionInfo;
+
     SimpleMath::Vector2 GetPlayerPosition() { return playerPosition; }
 
     /// <summary>
@@ -39,10 +45,7 @@ public:
     /// <param name="player">   ƒvƒŒƒCƒ„[‰æ‘œ</param>
     /// <param name="Attack">   UŒ‚‰æ‘œ      </param>
     /// <param name="collision">“–‚½‚è”»’è‰æ‘œ</param>
-    void LoadAssets(DirectXTK::Sprite& player,
-                    DirectXTK::Sprite& Attack, 
-                    DirectXTK::Sprite& collision
-                    );
+    void LoadAssets(DirectXTK::Sprite& player, DirectXTK::Sprite& Attack, DirectXTK::Sprite& collision);
     void Initialize();
     void Update();
     /// <summary>
