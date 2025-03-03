@@ -123,6 +123,32 @@ void Boss::Update(Vector2 playerPosition)
 			aimShotAttack[attackCount].Update(move.GetPosition(), playerPosition);
 			if (attackCount == aimShotMoveCount-1&& aimShotMoveCount != AIMSHOT_COUNT) { aimShotMoveCount++; }
 		}
+
+		for (int bulletCount = AIMSHOT_BULLET_MAX * attackCount; bulletCount < AIMSHOT_BULLET_MAX * (attackCount + 1); bulletCount++)
+		{
+			if (aimShotAttack[attackCount].GetIsPlaceMove()&&!aimShotAttack[attackCount].GetIsShotMove())
+			{
+				aimShotCollisionInfo[bulletCount].
+					SetSquareCorner(
+						aimShotAttack[attackCount].GetPosition(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						GetAimShotSpriteSize(),
+						aimShotAttack[attackCount].GetReserveVector(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						aimShotAttack[attackCount].GetAngle(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						GetAimShotSettingSpeed()
+					);
+			}
+			else if (aimShotAttack[attackCount].GetIsShotMove()) 
+			{
+				aimShotCollisionInfo[bulletCount].
+					SetSquareCorner(
+						aimShotAttack[attackCount].GetPosition(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						GetAimShotSpriteSize(),
+						aimShotAttack[attackCount].GetShotVector(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						aimShotAttack[attackCount].GetAngle(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+						GetAimShotShotSpeed()
+					);
+			}
+		}
 	}
 	if (aimShotAttack[aimShotMoveCount-1].GetIsShotEnd())
 	{

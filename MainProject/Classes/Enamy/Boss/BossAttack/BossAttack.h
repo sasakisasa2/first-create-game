@@ -36,6 +36,7 @@ namespace BossAttack
     private:
         CF::Timer shotTimer;
 
+        Vector2 reserveVector[AIMSHOT_BULLET_MAX];//©‹@‘_‚¢‚Ì‚½‚ß‚Ì€”õêŠ‚Ö‚Ì•ûŒü•ÛŠÇ—p•Ï”
         Vector2 shotVector[AIMSHOT_BULLET_MAX];//©‹@‘_‚¢‚Ì‚½‚ß‚Ì•ûŒü•ÛŠÇ—p•Ï”
 
         bool isShotMove; //”­Ë‚ÌŠÇ—
@@ -63,6 +64,13 @@ namespace BossAttack
         /// <param name="startPosition">’e‚ÌUŒ‚‚ªn‚Ü‚é</param>
         /// <param name="targetPosition">‘_‚¤ˆÊ’u</param>
         void Update(Vector2 startPosition,Vector2 targetPosition);
+
+        Vector2 GetPosition     (int bulletNumber) { return position     [bulletNumber]; }
+        Vector2 GetShotVector   (int bulletNumber) { return shotVector   [bulletNumber]; }
+        float   GetAngle        (int bulletNumber) { return angle        [bulletNumber]; }
+        Vector2 GetReserveVector(int bulletNumber) { return reserveVector[bulletNumber]; }
+        bool    GetIsPlaceMove(){ return isPlaceMove; }
+        bool    GetIsShotMove() { return isShotMove;  }
     };
 
     class Induction :public BossManager

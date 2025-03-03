@@ -25,15 +25,15 @@ private:
     CollisionInfo frameCollisionInfo[FRAME_BULLET_MAX];
     CollisionInfo normalCollisionInfo[NORMAL_SHOT_COUNT * NORMAL_SHOT_BULLET_MAX];
     CollisionInfo inductionCollisionInfo;
-    CollisionInfo AimShotCollisionInfo[AIMSHOT_COUNT * AIMSHOT_BULLET_MAX];
+    CollisionInfo aimShotCollisionInfo[AIMSHOT_COUNT * AIMSHOT_BULLET_MAX];
 
 public:
-    //CollisionInfo bossCollisionInfo() { return bossCollisionInfo; };
-    //CollisionInfo GetFrameCollisionInfo(int bulletNumber) { return frameCollisionInfo[bulletNumber]; };
-    //CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo[bulletNumber]; };
-    //CollisionInfo GetInductionCollisionInfo() { return inductionCollisionInfo; };
-    //CollisionInfo GetAimShotCollisionInfo(int bulletNumber) { return AimShotCollisionInfo[bulletNumber]; };
 
+    //CollisionInfo bossCollisionInfo() { return bossCollisionInfo; }
+    //CollisionInfo GetFrameCollisionInfo(int bulletNumber) { return frameCollisionInfo[bulletNumber]; }
+    //CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo[bulletNumber]; }
+    //CollisionInfo GetInductionCollisionInfo() { return inductionCollisionInfo; }
+    //CollisionInfo GetAimShotCollisionInfo(int bulletNumber) { return AimShotCollisionInfo[bulletNumber]; }
 
     Boss() :attackMode(1), normalAttackCount(0), aimShotMoveCount(1), isNormalAttackShot()
     { }
