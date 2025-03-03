@@ -19,4 +19,9 @@ public:
 	void Initialize(Vector2 setPlantPosition);
 	void Update(Vector2 playerPosition);
 
+	float   GetAngle         (int bulletNumber) { return angle[bulletNumber];    }
+	Vector2 GetMoveVector    (int bulletNumber) { return distance[bulletNumber]; }
+	Vector2 GetBulletPosition(int bulletNumber) { return position[bulletNumber]; }
+	bool    GetIsShot        (int bulletNumber) { return isShot[bulletNumber];   }
+
 };
