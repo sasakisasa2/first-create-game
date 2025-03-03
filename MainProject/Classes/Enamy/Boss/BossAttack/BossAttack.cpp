@@ -270,9 +270,12 @@ void BossAttack::Frame::Update()
 	{
 		//éwíËï˚å¸à⁄ìÆ
 		position[bulletNumber] += move[bulletNumber] * GetFrameMoveSpeed() * DXTK->Time.deltaTime;
+		angle[bulletNumber]     = CF::ChangeVectorToAngle(move[bulletNumber], angle[bulletNumber]);
+
 		//êÿÇËï‘Çµ	
 		if(!isVectorSwitch)
 		OutRange(bulletNumber);
+
 		if (CF::PositionRangeOver(position[bulletNumber], XRange(), YRange()))
 		{
 			moveEndCount++;
