@@ -12,7 +12,10 @@ private:
 	PlantSpawn     spawn;
 	PlantAnimation animation;
 	PlantAttack    attack;
+
+	CollisionInfo  plantCollisionInfo;
 public:
+	CollisionInfo GetCollisionInfo() { return plantCollisionInfo; }
 	void Load(DirectXTK::Sprite& setSprite,DirectXTK::Sprite& setAttackSprite);
 	void Initialize();
 	void Update(DirectX::SimpleMath::Vector2 playerPosition);
