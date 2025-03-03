@@ -12,8 +12,6 @@ private:
 	PlantSpawn     spawn;
 	PlantAnimation animation;
 	PlantAttack    attack;
-
-
 public:
 	void Load(DirectXTK::Sprite& setSprite,DirectXTK::Sprite& setAttackSprite);
 	void Initialize();
