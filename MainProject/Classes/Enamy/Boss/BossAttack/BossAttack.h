@@ -28,6 +28,7 @@ namespace BossAttack
         /// </summary>
         /// <param name="position">’e‚ª”­ŽË‚³‚ê‚éˆÊ’u</param>
         void ShotPreparation(Vector2 position);
+
     };
 
     class AimShot :public BossManager
@@ -118,5 +119,9 @@ namespace BossAttack
         void PositionSet();
         void Update();
         void SetIsVectorSwitch(bool isFlag) { isVectorSwitch = isFlag; }
+
+        Vector2 GetPosition  (int bulletNumber) { return position[bulletNumber]; }
+        Vector2 GetMoveVector(int bulletNumber) { return move[bulletNumber];     }
+        float   GetAngle     (int bulletNumber) { return angle[bulletNumber];    }
     };
 }

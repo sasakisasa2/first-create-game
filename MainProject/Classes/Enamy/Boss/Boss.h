@@ -3,13 +3,14 @@
 #include"..\Boss\BossAttack\BossAttack.h"
 #include"..\Boss\BossMove\BossMove.h"
 #include"..\Boss\BossHp.h"
+#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
 using namespace DirectX;
 using namespace BossAttack;
 class Boss : public BossManager {
 private:
     int       attackMode;
 
-    BossMove  move;                           //attaxkMode::1
+    BossMove  move;                           //attackMode::1
     Frame     frameAttack;                    //attackMode::1
     Normal    normalAttack[NORMAL_SHOT_COUNT];//attackMode::1
     Induction inductionAttack;                //attackMode::2
@@ -27,11 +28,11 @@ private:
     CollisionInfo AimShotCollisionInfo[AIMSHOT_COUNT * AIMSHOT_BULLET_MAX];
 
 public:
-    CollisionInfo bossCollisionInfo() { return bossCollisionInfo; }
-    CollisionInfo GetFrameCollisionInfo(int bulletNumber)  { return frameCollisionInfo  [bulletNumber]; }
-    CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo [bulletNumber]; }
-    CollisionInfo GetInductionCollisionInfo()              { return inductionCollisionInfo;             }
-    CollisionInfo GetAimShotCollisionInfo(int bulletNumber){ return AimShotCollisionInfo[bulletNumber]; }
+    //CollisionInfo bossCollisionInfo() { return bossCollisionInfo; };
+    //CollisionInfo GetFrameCollisionInfo(int bulletNumber) { return frameCollisionInfo[bulletNumber]; };
+    //CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo[bulletNumber]; };
+    //CollisionInfo GetInductionCollisionInfo() { return inductionCollisionInfo; };
+    //CollisionInfo GetAimShotCollisionInfo(int bulletNumber) { return AimShotCollisionInfo[bulletNumber]; };
 
 
     Boss() :attackMode(1), normalAttackCount(0), aimShotMoveCount(1), isNormalAttackShot()

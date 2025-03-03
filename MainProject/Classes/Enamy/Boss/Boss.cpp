@@ -50,6 +50,19 @@ void Boss::Update(Vector2 playerPosition)
 	{
 	case 1:
 		frameAttack.Update();
+
+		//“–‚½‚è”»’è‚Ìî•ñ‚Ìİ’è
+		for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++)
+		{
+			frameCollisionInfo[bulletNumber].
+				SetSquareCorner(
+					frameAttack.GetPosition(bulletNumber),
+					GetFrameSpriteSize(),
+					frameAttack.GetMoveVector(bulletNumber),
+					frameAttack.GetAngle(bulletNumber),
+					GetFrameMoveSpeed()
+				);
+		}
 		for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
 		{
 			if (isNormalAttackShot[attackCount])
