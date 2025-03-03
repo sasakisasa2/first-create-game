@@ -26,7 +26,7 @@ public:
     void Initialize();
     void Update();
 
-    float   GetAngle()  { return angle; }
+    float   GetAngle()  { return angle[0]; }
     Vector2 GetVector() { return moveVector; }
     Vector2 GetPlayerPosition() { return position[0];};
 private:

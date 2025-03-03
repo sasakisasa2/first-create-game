@@ -21,6 +21,7 @@
 #include"..\MainProject\Classes\Player\Movement\Move.h"
 #include"..\MainProject\Classes\Player\BulletAttack\BlueBullet.h"
 #include"..\MainProject\Classes\Player\PlayerColider\PlayerColider.h"
+#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
 
 using namespace DirectX;
 
