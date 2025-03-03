@@ -176,6 +176,7 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 	if (isPositionUpdate)
 	{
 		oldPlayerPosition = playerPosition;
+		angle[0] = CF::ChangeVectorToAngle(CF::DistanceCount(oldPlayerPosition,position[0]), angle[0]);
 		isPositionUpdate = false;
 	}
 
