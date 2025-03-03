@@ -29,12 +29,6 @@ private:
 
 public:
 
-    //CollisionInfo bossCollisionInfo() { return bossCollisionInfo; }
-    //CollisionInfo GetFrameCollisionInfo(int bulletNumber) { return frameCollisionInfo[bulletNumber]; }
-    //CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo[bulletNumber]; }
-    //CollisionInfo GetInductionCollisionInfo() { return inductionCollisionInfo; }
-    //CollisionInfo GetAimShotCollisionInfo(int bulletNumber) { return AimShotCollisionInfo[bulletNumber]; }
-
     Boss() :attackMode(1), normalAttackCount(0), aimShotMoveCount(1), isNormalAttackShot()
     { }
     void Load(DirectXTK::Sprite& bossSprite,
@@ -44,5 +38,10 @@ public:
     void Initialize();
     void Update(Vector2 playerPosition);
     void Render(DirectX::SpriteBatch* SpriteBatch);
+    //CollisionInfo bossCollisionInfo() { return bossCollisionInfo; }
+    //CollisionInfo GetFrameCollisionInfo(int bulletNumber) { return frameCollisionInfo[bulletNumber]; }
+    //CollisionInfo GetNormalCollisionInfo(int bulletNumber) { return normalCollisionInfo[bulletNumber]; }
+    //CollisionInfo GetInductionCollisionInfo() { return inductionCollisionInfo; }
+    //CollisionInfo GetAimShotCollisionInfo(int bulletNumber) { return aimShotCollisionInfo[bulletNumber]; }
 
 };

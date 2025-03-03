@@ -97,9 +97,10 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 		if (isPlaceMove && !isShotMove)
 		{
 			//UŒ‚€”õˆÊ’u‚Ì•ûŒüƒxƒNƒgƒ‹
-			Vector2 setMoveVector = CF::DistanceCount(SetAttackReserve(bulletNumber), position[bulletNumber]);
+			reserveVector[bulletNumber] = CF::DistanceCount(SetAttackReserve(bulletNumber), position[bulletNumber]);
 			//UŒ‚€”õˆÊ’u‚ÖˆÚ“®
-			position[bulletNumber] += setMoveVector * GetAimShotSettingSpeed() * DXTK->Time.deltaTime;
+			position[bulletNumber] += reserveVector[bulletNumber] * GetAimShotSettingSpeed() * DXTK->Time.deltaTime;
+			angle[bulletNumber] = CF::ChangeVectorToAngle(reserveVector[bulletNumber], angle[bulletNumber]);
 		}
 		if (!isShotMove)
 		{
@@ -110,6 +111,7 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 		{
 			//‘ÎÛ‚ÖUŒ‚
 			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
+			angle[bulletNumber] = CF::ChangeVectorToAngle(shotVector[bulletNumber], angle[bulletNumber]);
 		}
 		//’e‚ª”ÍˆÍŠO‚É‚¢‚é‚©‚Ç‚¤‚©‚ÌŠm”F
 		if (CF::PositionRangeOver(position[bulletNumber], XRange(), YRange()))
