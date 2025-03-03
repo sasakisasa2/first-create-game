@@ -2,6 +2,6 @@
 
 void PlantSpawn::Spawn()
 {
-	spawnPosition = Vector2(random.SetRandomf(GetRandomRange()),
+	spawnPosition = Vector2(CF::SetRandomf(GetRandomRange()),
 							DXTK->Screen.Height-GetSpriteSize().y/2);
 }

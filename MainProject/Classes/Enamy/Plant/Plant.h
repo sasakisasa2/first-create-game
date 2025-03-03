@@ -5,6 +5,8 @@
 #include"..\MainProject\Classes\Enamy\Plant\PlantAnimation\PlantAnimation.h"
 #include"..\MainProject\Classes\Enamy\Plant\PlantAttack\PlantAttack.h"
 #include"..\MainProject\Classes\Enamy\Plant\PlantSpawn\PlantSpawn.h"
+#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
+
 
 class Plant:public PlantManager
 {
