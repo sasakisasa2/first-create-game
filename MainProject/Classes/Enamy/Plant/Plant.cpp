@@ -21,8 +21,25 @@ void Plant::Update(DirectX::SimpleMath::Vector2 playerPosition)
 	{
 		attack.Update(playerPosition);
 	}
-	plantCollisionInfo.SetSquareCorner(spawn.GetPosition(), GetSpriteSize(), Vector2::Zero, 0.0f, 0.0f);
-
+	plantCollisionInfo.
+		SetSquareCorner(
+			spawn.GetPosition(),
+			GetSpriteSize(),
+			Vector2::Zero,
+			0.0f,
+			0.0f
+		);
+	for (int bulletNumber = 0; bulletNumber < ATTACK_MAX; bulletNumber++)
+	{
+		attackCollisionInfo.
+			SetSquareCorner(
+				attack.GetBulletPosition(bulletNumber),
+				GetAttackSpriteSize(),
+				attack.GetMoveVector(bulletNumber),
+				attack.GetAngle(bulletNumber),
+				GetAttackSpeed()
+			);
+	}
 }
 
 void Plant::Render(DirectX::SpriteBatch* spriteBatch) 
