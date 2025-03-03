@@ -15,12 +15,13 @@ void Plant::Initialize()
 
 void Plant::Update(DirectX::SimpleMath::Vector2 playerPosition) 
 {
-
 	animation.Update(playerPosition);
+
 	if (animation.AnimationEndCheck()==true)
 	{
 		attack.Update(playerPosition);
 	}
+
 	plantCollisionInfo.
 		SetSquareCorner(
 			spawn.GetPosition(),
@@ -29,6 +30,7 @@ void Plant::Update(DirectX::SimpleMath::Vector2 playerPosition)
 			0.0f,
 			0.0f
 		);
+
 	for (int bulletNumber = 0; bulletNumber < ATTACK_MAX; bulletNumber++)
 	{
 		attackCollisionInfo.
