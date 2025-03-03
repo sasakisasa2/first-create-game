@@ -21,7 +21,6 @@
 #include"..\MainProject\Classes\Player\Movement\Move.h"
 #include"..\MainProject\Classes\Player\BulletAttack\BlueBullet.h"
 #include"..\MainProject\Classes\Player\PlayerColider\PlayerColider.h"
-#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
 
 using namespace DirectX;
 
@@ -41,7 +40,7 @@ public:
     SimpleMath::Vector2 GetPlayerPosition() { return playerPosition; }
 
     /// <summary>
-    /// プレイヤーの画像の情報を持ったsprite
+    /// プレイヤーの画像の情報を持ったSprite
     /// </summary>
     /// <param name="player">   プレイヤー画像</param>
     /// <param name="Attack">   攻撃画像      </param>
