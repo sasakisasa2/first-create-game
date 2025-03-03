@@ -127,6 +127,7 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 #pragma region Induction
 BossAttack::Induction::Induction() :
 	isMove(true), isPositionUpdate(true),
+	isLastAttack(false),
 	moveVector() , oldPlayerPosition(),
 	volume(1)
 { } 
@@ -187,6 +188,7 @@ void BossAttack::Induction::Update(Vector2 playerPosition)
 		//停止時間
 		if (attackCoolTimer.TimeMeasurement(GetInductionAttackStopTime()))
 		{
+			isLastAttack = true;
 			//ラストアタック
 			position[0] += moveVector * GetInductionLastAttackSpeed() * DXTK->Time.deltaTime;
 		}	

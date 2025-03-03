@@ -83,6 +83,7 @@ namespace BossAttack
         SimpleMath::Vector2 oldPlayerPosition;
         bool isMove;
         bool isPositionUpdate;
+        bool isLastAttack;
         //’e‚Ì‘å‚«‚³
         int volume;
     public:
@@ -99,6 +100,12 @@ namespace BossAttack
         /// </summary>
         /// <param name="playerPosition">’Ç”ö‘ÎÛ</param>
         void Update(Vector2 playerPosition);
+
+        Vector2 GetPosition()   { return position[0];  }
+        Vector2 GetMoveVector() { return moveVector;   }
+        float GetAngle()        { return angle[0];     }
+        bool GetIsMove()        { return isMove;       }
+        bool GetIsLastAttack()  { return isLastAttack; }
 
     };
 
