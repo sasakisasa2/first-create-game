@@ -22,6 +22,7 @@ void Plant::Update(DirectX::SimpleMath::Vector2 playerPosition)
 		attack.Update(playerPosition);
 	}
 	plantCollisionInfo.SetSquareCorner(spawn.GetPosition(), GetSpriteSize(), Vector2::Zero, 0.0f, 0.0f);
+
 }
 
 void Plant::Render(DirectX::SpriteBatch* spriteBatch) 

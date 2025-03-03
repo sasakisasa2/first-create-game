@@ -14,8 +14,12 @@ private:
 	PlantAttack    attack;
 
 	CollisionInfo  plantCollisionInfo;
+	CollisionInfo  attackCollisionInfo;
 public:
-	CollisionInfo GetCollisionInfo() { return plantCollisionInfo; }
+
+	CollisionInfo GetCollisionInfo()       { return plantCollisionInfo;  }
+	CollisionInfo GetAttackCollisionInfo() { return attackCollisionInfo; }
+
 	void Load(DirectXTK::Sprite& setSprite,DirectXTK::Sprite& setAttackSprite);
 	void Initialize();
 	void Update(DirectX::SimpleMath::Vector2 playerPosition);
