@@ -123,7 +123,4 @@ namespace DX
 #include "Toolkits\DXTKCamera.h"
 
 #include"..\Classes\ObjectID.h"
-
 #include"..\MainProject\Classes\ConvenienceFeature\CF.h"
-
-#include"..\Classes\collision\CollisionInfo\CollisionInfo.h"
