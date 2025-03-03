@@ -63,8 +63,8 @@ namespace CF
     /// 指定範囲外へ出たかチェック
     /// </summary>
     /// <param name="position">確認したい座標</param>
-    /// <param name="width">X座標の範囲</param>
-    /// <param name="Height">Y座標の範囲</param>
+    /// <param name="width">   X座標の範囲   </param>
+    /// <param name="Height">  Y座標の範囲   </param>
     /// <returns>出ていればtrue,出ていなければfalse</returns>
     bool PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height);
 
@@ -72,7 +72,7 @@ namespace CF
     /// 向かう方向から角度を計算して返す
     /// </summary>
     /// <param name="vector">向かう方向</param>
-    /// <param name="angle">現在の角度</param>
+    /// <param name="angle"> 現在の角度</param>
     /// <returns>計算後の角度</returns>
     float ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle);
 
