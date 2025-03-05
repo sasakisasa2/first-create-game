@@ -9,6 +9,8 @@ namespace CD
 {
 	bool CollisionDetection(CollisionInfo& objectOne, CollisionInfo& objectTwo)
 	{
+		if (CF::Distance(objectOne.GetPosition(), objectOne.GetPosition()) < 100.0f) { return false; }
+
 		//判定用
 		bool detection = false;
 
@@ -94,13 +96,20 @@ namespace CD
 			axis[3].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
 		};
 
+		float axisDetectionCount = 0;
 		for (int axisCount = 0; axisCount < 4; axisCount++)
 		{
+			//オブジェクト間の距離がオブジェクト二つの半投影線分をプラスした値が小さい場合判定
 			if (interval[axisCount] < radian[axisCount].x + radian[axisCount].y)
 			{
-				detection = true;
+				axisDetectionCount++;
 			}
 		}
+
+		//分離軸四つ全て接触している判定になった場合接触している
+		if(axisDetectionCount == 4)
+			detection = true;
+
 		return detection;
 	}
 };
