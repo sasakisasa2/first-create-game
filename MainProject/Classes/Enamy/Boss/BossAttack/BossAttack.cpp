@@ -110,7 +110,7 @@ void BossAttack::AimShot::Update(Vector2 bossPosition, Vector2 playerPosition)
 		if (isShotMove)
 		{
 			//‘ÎÛ‚ÖUŒ‚
-			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotShotSpeed() * DXTK->Time.deltaTime;
+			position[bulletNumber] += shotVector[bulletNumber] * GetAimShotSpeed() * DXTK->Time.deltaTime;
 			angle[bulletNumber] = CF::ChangeVectorToAngle(shotVector[bulletNumber], angle[bulletNumber]);
 		}
 		//’e‚ª”ÍˆÍŠO‚É‚¢‚é‚©‚Ç‚¤‚©‚ÌŠm”F

@@ -47,7 +47,7 @@ protected:
 	float   GetAimShotShotPlace()        const { return aimShotShotPlace;         }
 	float   GetAimShotHyde()             const { return aimShotShotHyde;          }
 	float   GetAimShotSettingSpeed()     const { return aimShotSettingSpeed;      }
-	float   GetAimShotShotSpeed()	     const { return aimShotShotSpeed;         }
+	float   GetAimShotSpeed()	         const { return aimShotShotSpeed;         }
 	Vector2 GetInductionSpriteSize()     const { return inductionSpriteSize;      }
 	float   GetInductionMoveSpeed()	     const { return inductionMoveSpeed;       }
 	float   GetInductionLastAttackSpeed()const { return inductionLastAttackSpeed; }
