@@ -10,6 +10,7 @@ class CollisionInfo
 private:
 	Vector2 squareCorner[4];
 	Vector2 objectPosition;
+	Vector2 objectSize;
 	float objectAngle;
 public:
 	/// <summary>
@@ -48,11 +49,13 @@ public:
 		squareCorner[1] = CF::SquareMovement(ANGLE_TWO  , position          , RADIUS);
 		squareCorner[2] = CF::SquareMovement(ANGLE_THREE, ONE_FRAME_POSITION, RADIUS);
 		squareCorner[3] = CF::SquareMovement(ANGLE_FOUR , ONE_FRAME_POSITION, RADIUS);
-		objectAngle = angle;
 		objectPosition = position;
+		objectSize     = size;
+		objectAngle    = angle;
 	}
 
 	Vector2 GetSquareCorner(int cornerNumber) const { return squareCorner[cornerNumber]; }
 	Vector2 GetPosition() { return objectPosition; }
+	Vector2 GetSize()     { return objectSize;     }
 	float   GetAngle()    { return objectAngle;    }
 };
