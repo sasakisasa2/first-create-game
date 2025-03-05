@@ -88,5 +88,13 @@ public:
 			#pragma endregion
 		};
 
+		//分離軸上のオブジェクト同士の距離
+		float interval[4]
+		{
+			axis[0].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
+			axis[1].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
+			axis[2].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
+			axis[3].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
+		};
 	}
 };
