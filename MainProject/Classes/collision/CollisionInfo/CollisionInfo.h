@@ -51,7 +51,7 @@ public:
 		squareCorner[3] = CF::SquareMovement(ANGLE_FOUR , ONE_FRAME_POSITION, RADIUS);
 		objectPosition = position;
 		objectSize     = size;
-		objectAngle    = angle;
+		objectAngle    = CF::ChangeVectorToAngle(vector, angle);
 	}
 
 	Vector2 GetSquareCorner(int cornerNumber) const { return squareCorner[cornerNumber]; }
