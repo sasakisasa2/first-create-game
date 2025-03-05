@@ -9,7 +9,7 @@ namespace CD
 {
 	bool CollisionDetection(CollisionInfo& objectOne, CollisionInfo& objectTwo)
 	{
-		if (CF::Distance(objectOne.GetPosition(), objectOne.GetPosition()) < 100.0f) { return false; }
+		if (CF::Distance(objectOne.GetPosition(), objectTwo.GetPosition()) < 100.0f) { return false; }
 
 		//”»’è—p
 		bool detection = false;
