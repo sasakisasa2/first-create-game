@@ -9,6 +9,8 @@ class CollisionInfo
 {
 private:
 	Vector2 squareCorner[4];
+	Vector2 objectPosition;
+	float objectAngle;
 public:
 	/// <summary>
 	/// 当たり判定の為の位置保存用
@@ -31,7 +33,7 @@ public:
 		//サイズから逆算した角への角度
 		const Vector2 CORNER_ANGLE = CF::RectangleCornerAngle(SIZE_HALF);
 		//ここ→︻   への角度
-		const float ANGLE_ONE   = CF::ChangeVectorToAngle(vector,angle) + (NINETY + CORNER_ANGLE.x);
+		const float ANGLE_ONE   = CF::ChangeVectorToAngle(vector, angle) + (NINETY + CORNER_ANGLE.x);
 		//ここ→︼   への角度
 		const float ANGLE_TWO   = CF::ChangeVectorToAngle(vector, angle) - (NINETY + CORNER_ANGLE.x);
 		//︻←ここ   への角度
@@ -46,5 +48,7 @@ public:
 		squareCorner[1] = CF::SquareMovement(ANGLE_TWO  , position          , RADIUS);
 		squareCorner[2] = CF::SquareMovement(ANGLE_THREE, ONE_FRAME_POSITION, RADIUS);
 		squareCorner[3] = CF::SquareMovement(ANGLE_FOUR , ONE_FRAME_POSITION, RADIUS);
+		objectAngle = angle;
+		objectPosition = position;
 	}
 };
