@@ -51,4 +51,8 @@ public:
 		objectAngle = angle;
 		objectPosition = position;
 	}
+
+	Vector2 GetSquareCorner(int cornerNumber) const { return squareCorner[cornerNumber]; }
+	Vector2 GetPosition() { return objectPosition; }
+	float   GetAngle()    { return objectAngle;    }
 };
