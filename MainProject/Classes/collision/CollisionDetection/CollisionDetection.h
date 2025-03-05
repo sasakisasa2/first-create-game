@@ -7,6 +7,12 @@ class CollisionInfo;
 
 namespace CD
 {
+	/// <summary>
+	/// 当たり判定
+	/// </summary>
+	/// <param name="objectOne">判定のしたいオブジェクト元</param>
+	/// <param name="objectTwo">判定のしたいオブジェクト</param>
+	/// <returns>当たっている場合true 当たってない場合false</returns>
 	bool CollisionDetection(CollisionInfo& objectOne, CollisionInfo& objectTwo)
 	{
 		if (CF::Distance(objectOne.GetPosition(), objectTwo.GetPosition()) < 100.0f) { return false; }
