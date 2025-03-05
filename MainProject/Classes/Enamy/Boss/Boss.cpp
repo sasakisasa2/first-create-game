@@ -46,6 +46,8 @@ void Boss::Initialize()
 
 void Boss::Update(Vector2 playerPosition)
 {
+	float bossVector = 0.0f;
+
 	switch (attackMode)
 	{
 	case 1:
@@ -73,6 +75,7 @@ void Boss::Update(Vector2 playerPosition)
 
 				//攻撃開始
 				normalAttack[attackCount].ShotMove(vector);
+
 				for (int bulletCount = 0; bulletCount < NORMAL_SHOT_BULLET_MAX; bulletCount++)
 				{
 					normalCollisionInfo[bulletCount * attackCount].
@@ -90,16 +93,14 @@ void Boss::Update(Vector2 playerPosition)
 		//最終攻撃が終わるまで作動
 		if (normalAttackCount != NORMAL_SHOT_COUNT)
 		{
+			//下から上への移動
+			bossVector = -1.0f;
 			//上から下への移動
 			if (normalAttackCount % 2 == 0)
-			{
-				move.Update(1.0f);
-			}
-			//下から上への移動
-			else
-			{
+				bossVector = 1.0f; 
+
 				move.Update(-1.0f);
-			}
+
 			if (move.GetIsMoveEnd())
 			{
 				normalAttackCount++;                         //攻撃回数のカウント
@@ -122,10 +123,14 @@ void Boss::Update(Vector2 playerPosition)
 	case 2:
 		inductionAttack.Update(playerPosition);
 
-		float moveSpeed = GetInductionMoveSpeed() * inductionAttack.GetVolume();
+		float speed;
 		if (inductionAttack.GetIsLastAttack())
 		{
-			moveSpeed = GetInductionLastAttackSpeed();
+			speed = GetInductionLastAttackSpeed();
+		}
+		else
+		{
+			speed = GetInductionMoveSpeed() * inductionAttack.GetVolume();
 		}
 
 		inductionCollisionInfo.
@@ -134,7 +139,7 @@ void Boss::Update(Vector2 playerPosition)
 				GetInductionSpriteSize() * inductionAttack.GetVolume(),
 				inductionAttack.GetMoveVector(),
 				inductionAttack.GetAngle(),
-				moveSpeed
+				speed
 			);
 
 		if (inductionAttack.GetIsShotEnd())
@@ -173,18 +178,37 @@ void Boss::Update(Vector2 playerPosition)
 	}
 	if (aimShotAttack[aimShotMoveCount-1].GetIsShotEnd())
 	{
-			//初期化処理	
+		//エイムショットの初期化
 		for (int attackCount = 0; attackCount < aimShotMoveCount; attackCount++)
 		{
 			aimShotAttack[attackCount].ShotReserve();
 		}
-		aimShotMoveCount = 1;
+		aimShotMoveCount = 1;	
+		
+		//ノーマル攻撃の初期化
+		for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
+		{
+			normalAttack[attackCount].ShotPreparation(move.GetPosition());
+		}
+		//攻撃開始の為の準備
+		isNormalAttackShot[0] = true;
+		frameAttack.PositionSet();
+
 		attackMode = 1;
 	}
 	break;
 	default:
 		attackMode = 1;
 	};
+
+	bossCollisionInfo.
+		SetSquareCorner(
+			move.GetPosition(),
+			GetBossSpriteSize(),
+			Vector2(0.0f,bossVector),
+			0.0f,
+			GetMoveSpeed()
+		);
 }
 
 void Boss::Render(DirectX::SpriteBatch* SpriteBatch)

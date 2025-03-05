@@ -112,7 +112,7 @@ namespace BossAttack
         float GetAngle()        { return angle[0];     }
         bool GetIsMove()        { return isMove;       }
         bool GetIsLastAttack()  { return isLastAttack; }
-        bool GetVolume()        { return volume;       }
+        int  GetVolume()        { return volume;       }
     };
 
     class Frame :public BossManager
