@@ -7,6 +7,9 @@ namespace BossAttack
     class Normal:public BossManager
     {
     private:
+        
+        Vector2 shotVector[NORMAL_SHOT_BULLET_MAX];
+        
         /// <summary>
         /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğŒvZ‚µ•Ô‚·
         /// </summary>
@@ -29,6 +32,9 @@ namespace BossAttack
         /// <param name="position">’e‚ª”­Ë‚³‚ê‚éˆÊ’u</param>
         void ShotPreparation(Vector2 position);
 
+        Vector2 GetPosition  (int bulletNumber) { return position[bulletNumber];   }
+        Vector2 GetMoveVector(int bulletNumber) { return shotVector[bulletNumber]; }
+        float   GetAngle     (int bulletNumber) { return angle[bulletNumber];      }
     };
 
     class AimShot :public BossManager

@@ -73,6 +73,17 @@ void Boss::Update(Vector2 playerPosition)
 
 				//çUåÇäJén
 				normalAttack[attackCount].ShotMove(vector);
+				for (int bulletCount = 0; bulletCount < NORMAL_SHOT_BULLET_MAX; bulletCount++)
+				{
+					normalCollisionInfo[bulletCount * attackCount].
+						SetSquareCorner(
+						normalAttack[attackCount].GetPosition(bulletCount),
+						GetNormalSpriteSize(),
+						normalAttack[attackCount].GetMoveVector(bulletCount),
+						normalAttack[attackCount].GetAngle(bulletCount),
+						GetNormalShotSpeed()
+						);
+				}
 			}
 		}
 
