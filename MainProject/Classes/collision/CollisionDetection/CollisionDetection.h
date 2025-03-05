@@ -1,15 +1,12 @@
 #pragma once
 #include"..\MainProject\Base\pch.h"
 #include"..\MainProject\Base\dxtk.h"
-
 #include"..\CollisionInfo\CollisionInfo.h"
+
 class CollisionInfo;
 
-class CD
+namespace CD
 {
-private:
-
-public:
 	bool CollisionDetection(CollisionInfo& objectOne, CollisionInfo& objectTwo)
 	{
 		//”»’è—p
@@ -96,5 +93,14 @@ public:
 			axis[2].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
 			axis[3].Dot(objectOne.GetPosition() - objectTwo.GetPosition()),
 		};
+
+		for (int axisCount = 0; axisCount < 4; axisCount++)
+		{
+			if (interval[axisCount] < radian[axisCount].x + radian[axisCount].y)
+			{
+				detection = true;
+			}
+		}
+		return detection;
 	}
 };
