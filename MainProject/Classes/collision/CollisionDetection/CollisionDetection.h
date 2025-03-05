@@ -12,9 +12,19 @@ private:
 public:
 	bool CollisionDetection(CollisionInfo& objectOne, CollisionInfo& objectTwo)
 	{
-		//オブジェクト１の向きを分離軸として設定
+		//判定用
 		bool detection = false;
-		Vector2 axis = CF::ChangeAngleToVector(objectOne.GetAngle());
-	}
 
+		constexpr float NINTY = 90.0f;
+
+		//分離軸設定
+		Vector2 axis[4]
+		{ 
+			CF::ChangeAngleToVector(objectOne.GetAngle()),
+			CF::ChangeAngleToVector(objectOne.GetAngle() + NINTY),
+			CF::ChangeAngleToVector(objectTwo.GetAngle()),
+			CF::ChangeAngleToVector(objectTwo.GetAngle() + NINTY),
+		};
+		Vector2 sizeHalf[2]{ objectOne.GetSize() / 2.0f,objectTwo.GetSize() / 2.0f };
+	}
 };
