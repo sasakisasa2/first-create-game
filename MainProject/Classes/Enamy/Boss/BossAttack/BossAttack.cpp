@@ -263,6 +263,9 @@ void BossAttack::Frame::PositionSet()
 #pragma endregion
 		//Œü‚©‚¤•ûŒü‚ğw’è
 		VectorSet(bulletNumber);
+
+		//‰æ–ÊŠO‚Öo‚È‚¢‚æ‚¤‚É
+		isVectorSwitch = false;
 	}
 }
 
