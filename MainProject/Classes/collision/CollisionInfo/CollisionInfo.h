@@ -23,9 +23,9 @@ public:
 	void SetSquareCorner(Vector2 position, Vector2 size,Vector2 vector, float angle, float speed)
 	{
 		//計算用定数
-		const float   NINETY = 90;
-		const float   MINUS  = -1;
-		const Vector2 SIZE_HALF = size / 2;
+		constexpr float   NINETY = 90;
+		constexpr float   MINUS  = -1;
+		const Vector2 SIZE_HALF  = size / 2;
 
 		//1F後の位置
 		const Vector2 ONE_FRAME_POSITION = position + (vector * speed);
