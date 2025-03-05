@@ -88,6 +88,9 @@
     <Filter Include="Classes\Collision\CollisionInfo">
       <UniqueIdentifier>{f3a241a6-efcc-45b6-bbee-04595305e2d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Collision\CollisionDetection">
+      <UniqueIdentifier>{44049820-d07f-4c40-b27b-6384fcd9de50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\pch.h">
@@ -237,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="Classes\collision\CollisionInfo\CollisionInfo.h">
       <Filter>Classes\Collision\CollisionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\collision\CollisionDetection\CollisionDetection.h">
+      <Filter>Classes\Collision\CollisionDetection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
