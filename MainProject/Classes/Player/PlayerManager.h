@@ -46,7 +46,7 @@ protected:
 	DirectXTK::Sprite sprite;
 
 	std::vector<SimpleMath::Vector2> position; 
-
+	std::vector<float> angle;
 	Color color;
 #pragma endregion
 

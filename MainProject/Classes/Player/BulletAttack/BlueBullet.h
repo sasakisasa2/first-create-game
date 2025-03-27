@@ -25,6 +25,10 @@ class Bullet : public PlayerManager
 private:
 	CF::Timer timerCount;
 
+	Vector2 shotVector[PLAYER_ATTACK_MAX];//撃つ方向
+	int     wayHalf;					  //WAY数の半分
+	bool    isShot[PLAYER_ATTACK_MAX];//攻撃するかどうか
+
 #pragma region 攻撃準備用関数
 	/// <summary>
 	/// 弾を撃つ準備
@@ -70,11 +74,10 @@ private:
 	/// フラグのオフと位置変更
 	/// </summary>
 	void BulletReturn();
-
-	int     wayHalf;					  //WAY数の半分
-	bool    attackFlag[PLAYER_ATTACK_MAX];//攻撃するかどうか
-
 public:
+
+	Bullet();
+
 #pragma region プレイヤー射撃用の呼び出し関数
 
 	void Initialize();
@@ -110,4 +113,9 @@ public:
 		int     otherWay
 	);
 #pragma endregion
+
+	Vector2 GetShotPosition(int positionNumber){ return position[positionNumber]; }
+	float   GetBulletAngle(int bulletNumber)   { return angle[bulletNumber]; }
+	Vector2 GetShotVector(int vectorNumber)    { return shotVector[vectorNumber]; }
+	bool    GetIsShot(int isShotNumber)        { return isShot[isShotNumber]; }
 };

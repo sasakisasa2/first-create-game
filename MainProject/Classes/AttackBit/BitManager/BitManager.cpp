@@ -93,18 +93,6 @@ Vector2 BitManager::GetAttackSpace()
 
 #pragma endregion
 
-
-Vector2 BitManager::SquareMovement(float theta,Vector2 centerPosition,float distance)
-{
-	//指定された角度を関数用に値を設定
-	double angle = theta/57.295791f;
-	Vector2 differencePosition;
-	//座標を参照し位置を移動
-	differencePosition.x = centerPosition.x + distance * cos(angle);
-	differencePosition.y = centerPosition.y + distance * sin(angle);
-	return differencePosition;
-}
-
 void BitManager::Load(DirectXTK::Sprite& newSprite)
 {
 	sprite = newSprite;

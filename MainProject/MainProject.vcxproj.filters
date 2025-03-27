@@ -82,6 +82,15 @@
     <Filter Include="Classes\Enemy\Boss\BossMove">
       <UniqueIdentifier>{6fbd73bb-7f89-4121-a62b-2519225c3ea0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Collision">
+      <UniqueIdentifier>{9de425ca-aede-4f85-963a-8daa0d8897cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Collision\CollisionInfo">
+      <UniqueIdentifier>{f3a241a6-efcc-45b6-bbee-04595305e2d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Collision\CollisionDetection">
+      <UniqueIdentifier>{44049820-d07f-4c40-b27b-6384fcd9de50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\pch.h">
@@ -228,6 +237,12 @@
     </ClInclude>
     <ClInclude Include="Classes\Enamy\Boss\BossHp.h">
       <Filter>Classes\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\collision\CollisionInfo\CollisionInfo.h">
+      <Filter>Classes\Collision\CollisionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\collision\CollisionDetection\CollisionDetection.h">
+      <Filter>Classes\Collision\CollisionDetection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

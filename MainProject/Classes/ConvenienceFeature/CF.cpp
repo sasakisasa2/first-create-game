@@ -11,35 +11,39 @@ void CF::Timer::TimerReSet()
 bool CF::Timer::TimeMeasurement(float timeLimit)
 {
 	time += DXTK->Time.deltaTime;
+
 	if (time >= timeLimit) 
 	{
 		return true;
 	}
+
 	return false;
 }
 
-CF::Random::Random()
+
+float CF::SetRandomf(SimpleMath::Vector2 randomRange)
 {
 	std::random_device rd;
-	random = std::mt19937(rd());
-}
-
-float CF::Random::SetRandomf(SimpleMath::Vector2 randamRange)
-{
+	std::mt19937 random = std::mt19937(rd());
 	std::uniform_real_distribution<float> other;
-	other = std::uniform_real_distribution<float>(randamRange.x, randamRange.y);
+
+	other = std::uniform_real_distribution<float>(randomRange.x, randomRange.y);
 	return other(random);
 }
 
-int CF::Random::SetRandom(SimpleMath::Vector2 randamRange)
+int CF::SetRandom(SimpleMath::Vector2 randomRange)
 {
+	std::random_device rd;
+	std::mt19937 random = std::mt19937(rd());
 	std::uniform_real_distribution<float> other;
-	other = std::uniform_real_distribution<float>(randamRange.x, randamRange.y);
+
+	other = std::uniform_real_distribution<float>(randomRange.x, randomRange.y);
 	return (int)other(random);
 }
 
 SimpleMath::Vector2 CF::DistanceCount(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo)
 {
+	//距離の計測	
 	float distance = sqrt((positionOne.x - positionTwo.x) *
 					      (positionOne.x - positionTwo.x) +
 						  (positionOne.y - positionTwo.y) *
@@ -50,21 +54,27 @@ SimpleMath::Vector2 CF::DistanceCount(SimpleMath::Vector2 positionOne, SimpleMat
 
 float CF::Distance(SimpleMath::Vector2 positionOne, SimpleMath::Vector2 positionTwo)
 {
+	//距離の計測	
 	float distance = sqrt((positionOne.x - positionTwo.x) *
-		(positionOne.x - positionTwo.x) +
-		(positionOne.y - positionTwo.y) *
-		(positionOne.y - positionTwo.y));
+						  (positionOne.x - positionTwo.x) +
+						  (positionOne.y - positionTwo.y) *
+						  (positionOne.y - positionTwo.y));
 	return distance;
 }
 
-bool CF::PositionRengeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height)
+bool CF::PositionRangeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 width, SimpleMath::Vector2 Height)
 {
 	bool isOver = false;
-	if (position.x > Height.x)
+
+	if (position.x < width.x)
 	{
 		isOver = true;
 	}
-	if (position.x < width.x)
+	if (position.x > width.y)
+	{
+		isOver = true;
+	}
+	if (position.y < Height.x)
 	{
 		isOver = true;
 	}
@@ -72,9 +82,136 @@ bool CF::PositionRengeOver(SimpleMath::Vector2 position, SimpleMath::Vector2 wid
 	{
 		isOver = true;
 	}
-	if (position.y < width.y)
-	{
-		isOver = true;
-	}
 	return isOver;
+}
+
+float CF::ChangeVectorToAngle(SimpleMath::Vector2 vector,float angle)
+{
+	if (vector.x == 0.0f && vector.y == 0.0f) { return angle; }
+
+	//ベクトルのXとYの合計を計算(マイナスは含めず自然数のみ）
+	float total = MinusToPlusf(vector.x) + MinusToPlusf(vector.y);
+
+	//合計から元のVectorを割り割合を計算
+	SimpleMath::Vector2 calculationVector = vector / total;
+	
+	float setAngle;
+	if (vector.y >= 0.0f)
+	{
+		//下方向ならば真横から真下を向くように
+		setAngle = vector.x * 90.0f;
+	}
+	else
+	{
+		//上方向に進むのであれば真横から真上を向くように
+		setAngle = (MinusToPlusf(vector.y) * 90.0f) + 90.0f;
+	}
+	if (vector.x >= 0.0f)
+	{
+		//向かう方向が右方向なら角度をマイナスに
+		setAngle = -setAngle;
+	}
+	else if(setAngle < 0.0f)
+	{
+		//向かう方向が左方向かつ覚悟がマイナスなのであればplusに
+		setAngle = setAngle *-1;
+	}
+	return setAngle;
+}
+
+SimpleMath::Vector2 CF::ChangeAngleToVector(float angle)
+{
+	//計算の為の定数
+	constexpr float CIRCLE         = 360;
+	constexpr float QUARTER_CIRCLE = 90;
+	SimpleMath::Vector2 vector;
+
+	//マイナスを無くした角度
+	float newAngle = MinusToPlusf(angle);
+
+	//計算用に角度を360度以内に
+	while(newAngle > CIRCLE)
+	{
+		newAngle -= CIRCLE;
+	}
+
+	//角度を90度で割り4以下に(0-90,90-180,180-270,270-360で計算するため）
+	float fraction = newAngle / QUARTER_CIRCLE;
+
+	//x+yの合計が１になるように計算
+	//0-90の間で計算
+	if (fraction <= 1.0f)
+	{
+		//下から右へ減らしていくためyを減らしていく
+		vector = SimpleMath::Vector2(fraction,1.0f- fraction);
+	}
+	else if(fraction <= 2.0f)
+	{
+		//右から上へ減らしていくためxを減らし、上なのでyを-に
+		float angleFraction = fraction - 1.0f;
+		vector = SimpleMath::Vector2(1.0f - angleFraction, angleFraction * -1.0f);
+	}
+	else if (fraction <= 3.0f)
+	{
+		//上から左へ減らしていくためyを減らし、左なのでxを-に、上なのでyをマイナスに
+		float angleFraction = fraction - 2.0f;
+		vector = SimpleMath::Vector2(angleFraction * -1.0f, (1.0f - angleFraction) * -1.0f);
+	}
+	else
+	{
+		//左から下へ減らしていくためxを減らし、左なのでxを-に
+		float angleFraction = fraction - 3.0f;
+		vector = SimpleMath::Vector2((1.0f - angleFraction) * -1.0f, angleFraction);
+	}
+
+	//角度がマイナスの場合x方向を逆に
+	if (angle < 0.0f) { vector.x = vector.x * -1.0f; }
+	return vector;
+}
+
+float CF::MinusToPlusf(float minus)
+{
+	if (minus < 0.0f)
+	{
+		minus = minus * -1.0f;
+	}
+	return minus;
+}
+
+int CF::MinusToPlus(int minus)
+{
+	if (minus < 0)
+	{
+		minus = minus * -1;
+	}
+	return minus;
+}
+
+SimpleMath::Vector2 CF::RectangleCornerAngle(SimpleMath::Vector2 size)
+{
+	//定数の計算用
+	constexpr float ANGLE = 90;
+	constexpr float ONE   = 1;
+
+	//サイズの割合を計算
+	SimpleMath::Vector2 ratio = SimpleMath::Vector2(size.x / size.y, ONE);
+
+	//割合に応じた角度を計算
+	float ratioAngle = ANGLE / (ratio.x + ratio.y);
+
+	//割合に応じた角度をかけて中心点から角への角度を返す
+	return ratio * ratioAngle;
+}
+
+SimpleMath::Vector2 CF::SquareMovement(float theta, SimpleMath::Vector2 centerPosition, float distance)
+{
+	//指定された角度を関数用に値を設定
+	double angle = theta / 57.295791f;
+	SimpleMath::Vector2 differencePosition;
+
+	//座標を参照し位置を移動
+	differencePosition.x = centerPosition.x + distance * cos(angle);
+	differencePosition.y = centerPosition.y + distance * sin(angle);
+
+	return differencePosition;
 }

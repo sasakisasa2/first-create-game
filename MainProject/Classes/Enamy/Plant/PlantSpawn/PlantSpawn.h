@@ -7,8 +7,7 @@ using namespace SimpleMath;
 class PlantSpawn :public PlantManager
 {
 private:
-	CF::Random random;
-	Vector2	   spawnPosition;
+	Vector2 spawnPosition;
 public:
 	void Spawn();
 	Vector2 GetPosition()

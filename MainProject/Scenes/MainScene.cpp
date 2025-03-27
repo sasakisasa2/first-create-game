@@ -41,7 +41,7 @@ void MainScene::LoadAssets()
 	DirectXTK::Sprite playerSprite;
 	if (DontDestroy->attackAttribute == 2) {
 		playerSprite = DirectXTK::CreateSpriteSRV(
-			device, L"Player_red.png", resourceUpload,
+			device, L"Player_red2.png", resourceUpload,
 			descHeap, PlayerEnum::Player
 		);
 	}
@@ -247,11 +247,11 @@ void MainScene::Initialize()
 		if (bitcount % 2 == 0) {
 			playerBit[bitcount].Initialize(360.0f / (float)BIT_MAX * ((float)bitcount + 1.0f), 
 									       false, //‰ñ“]•ûŒü
-										   true );//˜p‹È•ûŒü
+										   false );//˜p‹È•ûŒü
 			continue;
 		}
 		    playerBit[bitcount].Initialize(360.0f / (float)BIT_MAX * ((float)bitcount + 1.0f),
-				                           true , //‰ñ“]•ûŒü
+				                           false , //‰ñ“]•ûŒü
 				                           false);//˜p‹È•ûŒü
 		    continue;
 	}
@@ -818,10 +818,10 @@ void MainScene::Render()
 //	boss_collision.width = 150;
 //	boss_collision.height = 150;
 //
-//	if (attackFlag[number]) {
+//	if (isShot[number]) {
 //		if (collision.Intersects(boss_collision)) {
 //			bossHpLow -= attackDamage;
-//			attackFlag[number] = false;
+//			isShot[number] = false;
 //			playerAttackEffectPosition[number] = attackPosition[number];
 //			playerAttackEffectDrowFlag[number] = true;
 //		}
@@ -842,10 +842,10 @@ void MainScene::Render()
 //		enemyPlantCollision.y = plantPosition.y - plantSizeHalfY / 2 + 10;
 //		enemyPlantCollision.width = plantSizeThirdX;
 //		enemyPlantCollision.height = plantSizeHalfY;
-//		if (attackFlag[number]) {
+//		if (isShot[number]) {
 //			if (collision.Intersects(enemyPlantCollision)) {
 //				plantHp -= attackDamage;
-//				attackFlag[number] = false;
+//				isShot[number] = false;
 //				playerAttackEffectPosition[number] = attackPosition[number];
 //				playerAttackEffectDrowFlag[number] = true;
 //			}

@@ -15,11 +15,32 @@ void Plant::Initialize()
 
 void Plant::Update(DirectX::SimpleMath::Vector2 playerPosition) 
 {
-
 	animation.Update(playerPosition);
+
 	if (animation.AnimationEndCheck()==true)
 	{
 		attack.Update(playerPosition);
+	}
+
+	plantCollisionInfo.
+		SetSquareCorner(
+			spawn.GetPosition(),
+			GetSpriteSize(),
+			Vector2::Zero,
+			0.0f,
+			0.0f
+		);
+
+	for (int bulletNumber = 0; bulletNumber < ATTACK_MAX; bulletNumber++)
+	{
+		attackCollisionInfo.
+			SetSquareCorner(
+				attack.GetBulletPosition(bulletNumber),
+				GetAttackSpriteSize(),
+				attack.GetMoveVector(bulletNumber),
+				attack.GetAngle(bulletNumber),
+				GetAttackSpeed()
+			);
 	}
 }
 

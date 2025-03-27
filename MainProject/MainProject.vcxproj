@@ -206,6 +206,8 @@
     <ClInclude Include="Classes\AttackBit\BitAttack\BitAttack.h" />
     <ClInclude Include="Classes\AttackBit\BitManager\BitManager.h" />
     <ClInclude Include="Classes\AttackBit\BitMove\BitMove.h" />
+    <ClInclude Include="Classes\collision\CollisionDetection\CollisionDetection.h" />
+    <ClInclude Include="Classes\collision\CollisionInfo\CollisionInfo.h" />
     <ClInclude Include="Classes\ConvenienceFeature\CF.h" />
     <ClInclude Include="Classes\Enamy\Boss\Boss.h" />
     <ClInclude Include="Classes\Enamy\Boss\BossAttack\BossAttack.h" />

@@ -2,118 +2,249 @@
 
 void Boss::Load(DirectXTK::Sprite& bossSprite, DirectXTK::Sprite& atttackSprite, DirectXTK::Sprite& hpSprite, DirectXTK::Sprite& hpBackGroundSprite)
 {
-	move           .Load(bossSprite);
-	normalAttack   .Load(atttackSprite);
+	move.Load(bossSprite);
+
+	frameAttack.Load(atttackSprite);
+	
+	for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
+	{
+		normalAttack[attackCount].Load(atttackSprite);
+	}
+
 	inductionAttack.Load(atttackSprite);
-	frameAttack    .Load(atttackSprite);
-	aimShotAttack  .Load(atttackSprite);
+
+
+	for (int attackCount = 0; attackCount < 5; attackCount++)
+	{
+		aimShotAttack[attackCount].Load(atttackSprite);
+	}
 }
 
 void Boss::Initialize()
 {
-	move           .SpriteSizeSet(GetBossSpriteSize());
-	normalAttack   .SpriteSizeSet(GetNormalSpriteSize());
+	move.SpriteSizeSet(GetBossSpriteSize());
+
+	frameAttack.SpriteSizeSet(GetFrameSpriteSize());
+
+	for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
+	{
+		normalAttack[attackCount].SpriteSizeSet(GetNormalSpriteSize());
+	}
+
 	inductionAttack.SpriteSizeSet(GetInductionSpriteSize());
-	frameAttack    .SpriteSizeSet(GetFrameSpriteSize());
-	aimShotAttack  .SpriteSizeSet(GetAimShotSpriteSize());
+
+
+	for (int attackCount = 0; attackCount < 5; attackCount++)
+	{
+		aimShotAttack[attackCount].SpriteSizeSet(GetAimShotSpriteSize());
+	}
+
 	frameAttack.PositionSet();
+	normalAttack[0].ShotPreparation(move.GetPosition());
+	isNormalAttackShot[0] = true;
 }
 
 void Boss::Update(Vector2 playerPosition)
 {
-	//switch (attackMode)
-	//{
-	//case 1:
-		frameAttack.Update();
-		if (modeChangeCoolTime.TimeMeasurement(2))
-		{
-			modeChangeCoolTime.TimerReSet();
-			attackMode++;
-		}
-	//	break;
-	//case 2:
-		if (normalAttack.GetIsMoveStart())
-		{
-			if (normalAttack.GetAttackCount() % 2 == 0)
-			{
-				move.Update(1.0f);
-			}
-			else
-			{
-				move.Update(-1.0f);
-			}
-		}
-		if (move.GetIsMoveEnd())
-		{
-			normalAttack.SetIsMoveStart(false);
-			if (normalAttack.GetIsMoveStart())
-			{
-				move.SetIsMoveEnd(false);
-			}
-		}	
-		normalAttack.Update(move.GetPosition());
+	float bossVector = 0.0f;
 
-		if (normalAttack.GetAttackCount() == normalAttack.NORMAL_SHOT_COUNT)
+	switch (attackMode)
+	{
+	case 1:
+		frameAttack.Update();
+
+		//“–‚½‚è”»’è‚Ìî•ñ‚ÌÝ’è
+		for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++)
 		{
-			if (modeChangeCoolTime.TimeMeasurement(2))
+			frameCollisionInfo[bulletNumber].
+				SetSquareCorner(
+					frameAttack.GetPosition(bulletNumber),
+					GetFrameSpriteSize(),
+					frameAttack.GetMoveVector(bulletNumber),
+					frameAttack.GetAngle(bulletNumber),
+					GetFrameMoveSpeed()
+				);
+		}
+		for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
+		{
+			if (isNormalAttackShot[attackCount])
 			{
-				modeChangeCoolTime.TimerReSet();
+				//UŒ‚•ûŒü‚ÌÝ’è
+				float vector = 1.0f;
+				if (attackCount % 2 == 1) { vector = -1.0f; }
+
+				//UŒ‚ŠJŽn
+				normalAttack[attackCount].ShotMove(vector);
+
+				for (int bulletCount = 0; bulletCount < NORMAL_SHOT_BULLET_MAX; bulletCount++)
+				{
+					normalCollisionInfo[bulletCount * attackCount].
+						SetSquareCorner(
+						normalAttack[attackCount].GetPosition(bulletCount),
+						GetNormalSpriteSize(),
+						normalAttack[attackCount].GetMoveVector(bulletCount),
+						normalAttack[attackCount].GetAngle(bulletCount),
+						GetNormalShotSpeed()
+						);
+				}
+			}
+		}
+
+		//ÅIUŒ‚‚ªI‚í‚é‚Ü‚Åì“®
+		if (normalAttackCount != NORMAL_SHOT_COUNT)
+		{
+			//‰º‚©‚çã‚Ö‚ÌˆÚ“®
+			bossVector = -1.0f;
+			//ã‚©‚ç‰º‚Ö‚ÌˆÚ“®
+			if (normalAttackCount % 2 == 0)
+				bossVector = 1.0f; 
+
+				move.Update(-1.0f);
+
+			if (move.GetIsMoveEnd())
+			{
+				normalAttackCount++;                         //UŒ‚‰ñ”‚ÌƒJƒEƒ“ƒg
+				move.SetIsMoveEnd(false);                    //ˆÚ“®‚ÌÄŠJ
+				isNormalAttackShot[normalAttackCount] = true;//ŽŸ‚ÌUŒ‚‚ÌÄŠJ
+				normalAttack[normalAttackCount].ShotPreparation(move.GetPosition());//UŒ‚‚Ì€”õ
+			}
+		}
+		else
+		{
+			frameAttack.SetIsVectorSwitch(true);
+			if (normalAttack[normalAttackCount-1].GetIsShotEnd()&&frameAttack.GetIsShotEnd())
+			{
+				normalAttackCount = 0;
 				inductionAttack.InductionStart(move.GetPosition());
 				attackMode++;
 			}
 		}
-	//	break;
-	//case 3:
+		break;
+	case 2:
 		inductionAttack.Update(playerPosition);
-		if (modeChangeCoolTime.TimeMeasurement(2))
+
+		float speed;
+		if (inductionAttack.GetIsLastAttack())
 		{
-			modeChangeCoolTime.TimerReSet();
+			speed = GetInductionLastAttackSpeed();
+		}
+		else
+		{
+			speed = GetInductionMoveSpeed() * inductionAttack.GetVolume();
+		}
+
+		inductionCollisionInfo.
+			SetSquareCorner(
+				inductionAttack.GetPosition(),
+				GetInductionSpriteSize() * inductionAttack.GetVolume(),
+				inductionAttack.GetMoveVector(),
+				inductionAttack.GetAngle(),
+				speed
+			);
+
+		if (inductionAttack.GetIsShotEnd())
+		{
 			attackMode++;
 		}
-	//	break;
-	//case 4:
-		aimShotAttack.Update(move.GetPosition(), playerPosition);
-		if (modeChangeCoolTime.TimeMeasurement(2))
+		break;
+	case 3:
+	for (int attackCount = 0; attackCount < aimShotMoveCount; attackCount++)
+	{
+		if (aimShotTimer[attackCount].TimeMeasurement(3))
 		{
-			modeChangeCoolTime.TimerReSet();
-			attackMode = 1;
+			aimShotAttack[attackCount].Update(move.GetPosition(), playerPosition);
+			if (attackCount == aimShotMoveCount-1&& aimShotMoveCount != AIMSHOT_COUNT) { aimShotMoveCount++; }
 		}
-	//	break;
-	//default:
+
+		for (int bulletCount = AIMSHOT_BULLET_MAX * attackCount; bulletCount < AIMSHOT_BULLET_MAX * (attackCount + 1); bulletCount++)
+		{
+			float speed = GetAimShotSettingSpeed();
+			Vector2 vector = aimShotAttack[attackCount].GetReserveVector(bulletCount - (AIMSHOT_BULLET_MAX * attackCount));
+
+			if (aimShotAttack[attackCount].GetIsShotMove()) 
+			{
+				speed = GetAimShotSpeed();
+				vector = aimShotAttack[attackCount].GetShotVector(bulletCount - (AIMSHOT_BULLET_MAX * attackCount));
+			}
+			aimShotCollisionInfo[bulletCount].
+				SetSquareCorner(
+					aimShotAttack[attackCount].GetPosition(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+					GetAimShotSpriteSize(),
+					vector,
+					aimShotAttack[attackCount].GetAngle(bulletCount - (AIMSHOT_BULLET_MAX * attackCount)),
+					speed
+				);
+		}
+	}
+	if (aimShotAttack[aimShotMoveCount-1].GetIsShotEnd())
+	{
+		//ƒGƒCƒ€ƒVƒ‡ƒbƒg‚Ì‰Šú‰»
+		for (int attackCount = 0; attackCount < aimShotMoveCount; attackCount++)
+		{
+			aimShotAttack[attackCount].ShotReserve();
+		}
+		aimShotMoveCount = 1;	
+		
+		//ƒm[ƒ}ƒ‹UŒ‚‚Ì‰Šú‰»
+		for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
+		{
+			normalAttack[attackCount].ShotPreparation(move.GetPosition());
+		}
+		//UŒ‚ŠJŽn‚Ìˆ×‚Ì€”õ
+		isNormalAttackShot[0] = true;
+		frameAttack.PositionSet();
+
+		attackMode = 1;
+	}
+	break;
+	default:
 		attackMode = 1;
 	};
-//}
+
+	bossCollisionInfo.
+		SetSquareCorner(
+			move.GetPosition(),
+			GetBossSpriteSize(),
+			Vector2(0.0f,bossVector),
+			0.0f,
+			GetMoveSpeed()
+		);
+}
 
 void Boss::Render(DirectX::SpriteBatch* SpriteBatch)
 {	
 	move.Render(SpriteBatch, 0);
-
-	//switch (attackMode)
-	//{
-	//case 1:
-		for (int bulletNumber = 0; bulletNumber < frameAttack.FRAME_BULLET_MAX; bulletNumber++)
+	switch (attackMode)
+	{
+	case 1:
+		//’e‚Ì•`‰æ
+		for (int bulletNumber = 0; bulletNumber < FRAME_BULLET_MAX; bulletNumber++)
 		{
 			frameAttack.Render(SpriteBatch, bulletNumber);
 		}
-	//	break;
-	//case 2:
-		for (int bulletNumber = 0; bulletNumber < normalAttack.NORMAL_SHOT_BULLET_MAX; bulletNumber++)
+		//UŒ‚‰ñ”•`‰æ
+		for (int attackCount = 0; attackCount < NORMAL_SHOT_COUNT; attackCount++)
 		{
-			normalAttack.Render(SpriteBatch, bulletNumber);
+			//’e‚Ì•`‰æ
+			for (int bulletNumber = 0; bulletNumber < NORMAL_SHOT_BULLET_MAX; bulletNumber++)
+			{
+				normalAttack[attackCount].Render(SpriteBatch, bulletNumber);
+			}
 		}
-	//	break;
-	//case 3:
-		inductionAttack.Render(SpriteBatch,0);
-	//	break;
-	//case 4:
-		for (int bulletNumber = 0; bulletNumber < aimShotAttack.AIMSHOT_BULLET_MAX; bulletNumber++)
+		break;
+	case 2:
+		//’e‚Ì•`‰æ
+		inductionAttack.Render(SpriteBatch, 0);
+		break;
+	case 3:
+		for (int attackCount = 0; attackCount < AIMSHOT_COUNT; attackCount++)
 		{
-			aimShotAttack.Render(SpriteBatch, bulletNumber);
+			//’e‚Ì•`‰æ
+			for (int bulletNumber = 0; bulletNumber < AIMSHOT_BULLET_MAX; bulletNumber++)
+			{
+				aimShotAttack[attackCount].Render(SpriteBatch, bulletNumber);
+			}
 		}
-	//	break;
-	//default:
-		attackMode = 1;
-		//break;
+		break;
 	};
-//
-//}
+}

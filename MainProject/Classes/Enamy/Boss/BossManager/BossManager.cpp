@@ -1,28 +1,31 @@
 #include "BossManager.h"
 BossManager::BossManager() :
-	position(FRAME_BULLET_MAX, Vector2(540.0f,100.0f)),
+	position(FRAME_BULLET_MAX, Vector2(640.0f,100.0f)),
 	color   (FRAME_BULLET_MAX, Vector4(1.0f, 1.0f, 1.0f, 1.0f)),
 	angle   (FRAME_BULLET_MAX, 0.0f),
 	effect  (SpriteEffects_None)
 {
+	isShotEnd                = false;
+
 	bossSpriteSize           = Vector2(200.0f,200.0f);
-	moveSpeed                = 100.0f;
+	moveSpeed                = 500.0f;
 	//í èÌçUåÇ
 	normalSpriteSize         = Vector2(50.0f,50.0f);
 	normalShotSpeed          = 300.0f;
 	normalShotPlace          = 0.3f;
 	//é©ã@ë_Ç¢çUåÇ
-	aimShotSpriteSize       = Vector2(50.0f,50.0f);
-	aimShotPlaceMin         = 200.0f;
-	aimShotShotPlace        = (float)DXTK->Screen.Width / (float)AIMSHOT_ONEATTACK_BULLET_MAX;
-	aimShotShotHyde         = 100.0f;
-	aimShotSettingSpeed     = 1000.0f;
-	aimShotShotSpeed        = 1000.0f;
-	toShotTime              = 2.0f;
+	aimShotSpriteSize        = Vector2(50.0f,50.0f);
+	aimShotPlaceMin          = 200.0f;
+	aimShotShotPlace         = ((float)DXTK->Screen.Width - (aimShotPlaceMin*2.0f)) / (float)AIMSHOT_BULLET_MAX;
+	aimShotShotHyde          = 100.0f;
+	aimShotSettingSpeed      = 1000.0f;
+	aimShotShotSpeed         = 1000.0f;
+	toShotTime               = 2.0f;
 	//í«îˆçUåÇ
-	inductionSpriteSize      = Vector2(50.0f,50.0f);
+	inductionSpriteSize      = Vector2(100.0f,100.0f);
 	inductionMoveSpeed       = 300.0f;
 	inductionLastAttackSpeed = 1000.0f;
+	inductionAttackStopTime  = 3.0f;
 	volumeLargeTime	         = 2.0f;
 	maxVolume                = 3;
 	//ÉtÉåÅ[ÉÄçUåÇ

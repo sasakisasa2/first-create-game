@@ -7,59 +7,89 @@ namespace BossAttack
     class Normal:public BossManager
     {
     private:
-        bool    isMoveStart;
-        int     attackCount;
-        bool    isShot    [NORMAL_SHOT_BULLET_MAX];//’e‚Ì”­ËŠÇ—
-        Vector2 moveVector[NORMAL_SHOT_BULLET_MAX];//UŒ‚•ûŒü
-
+        
+        Vector2 shotVector[NORMAL_SHOT_BULLET_MAX];
+        
         /// <summary>
-        /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğ•Ô‚·
-        /// ”¼‰~ó‚É“WŠJ‚·‚é
+        /// Å‘å”‚©‚çŒ»İ‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğŒvZ‚µ•Ô‚·
         /// </summary>
-        /// <param name="shotVectorY">‰º•ûŒü‚©ã•ûŒü‚©(ã::-1,‰º::1)</param>
-        /// <param name="oneShotBulletMax">’e‚ÌÅ‘å”</param>
-        /// <param name="bulletNumber">Œ»İ‰½”­–Ú‚©</param>
+        /// <param name="shotVectorY">  ‰º•ûŒü‚©ã•ûŒü‚©(ã::-1,‰º::1)</param>
+        /// <param name="shotMax">      ’e‚ÌÅ‘å”</param>
+        ///  <param name="bulletNumber">‰½”­–Ú‚©</param>
         /// <returns>Œü‚©‚¤•ûŒü</returns>
-        Vector2 ShotVectorSet(float shotVectorY,float oneShotBulletMax,float bulletNumber);
+        Vector2 ShotVectorSet(float shotVectorY,float shotMax,float bulletNumber);
 
     public:
-        Normal();
-        int  GetAttackCount() { return attackCount; }
-        bool GetIsMoveStart() { return isMoveStart; }
-        void SetIsMoveStart(bool setIsMove) { isMoveStart = setIsMove; }
-        void Update(Vector2 BossPosition);
+        /// <summary>
+        /// w’è•ûŒü‚É¤ó‚É”ò‚ñ‚Å‚¢‚­
+        /// </summary>
+        /// <param name="moveVector">Œü‚©‚í‚¹‚½‚¢•ûŒü</param>
+        void ShotMove(float moveVector);
+
+        /// <summary>
+        /// w’èˆÊ’u‚ÉˆÚ“®
+        /// </summary>
+        /// <param name="position">’e‚ª”­Ë‚³‚ê‚éˆÊ’u</param>
+        void ShotPreparation(Vector2 position);
+
+        Vector2 GetPosition  (int bulletNumber) { return position[bulletNumber];   }
+        Vector2 GetMoveVector(int bulletNumber) { return shotVector[bulletNumber]; }
+        float   GetAngle     (int bulletNumber) { return angle[bulletNumber];      }
     };
 
     class AimShot :public BossManager
     {
     private:
         CF::Timer shotTimer;
-        Vector2 shotVector[AIMSHOT_BULLET_MAX];
-        //”­Ë‚ğŠÇ—‚·‚é•Ï”
-        bool isShotMove[AIMSHOT_COUNT];
-        bool isPlaceMove[AIMSHOT_COUNT];//’e‚Ì’èˆÊ’u‚Ü‚Å‚ÌˆÚ“®ŠÇ—
 
+        Vector2 reserveVector[AIMSHOT_BULLET_MAX];//©‹@‘_‚¢‚Ì‚½‚ß‚Ì€”õêŠ‚Ö‚Ì•ûŒü•ÛŠÇ—p•Ï”
+        Vector2 shotVector[AIMSHOT_BULLET_MAX];//©‹@‘_‚¢‚Ì‚½‚ß‚Ì•ûŒü•ÛŠÇ—p•Ï”
 
-        Vector2 SetAttackReserve(int attackCount,int bulletNumber);
+        bool isShotMove; //”­Ë‚ÌŠÇ—
+        bool isPlaceMove;//’e‚Ì’èˆÊ’u‚Ü‚Å‚ÌˆÚ“®ŠÇ—
 
+        /// <summary>
+        /// ’e‚ª‰½”­–Ú‚©‚É‰‚¶‚ÄˆÚ“®æ‚ÌˆÊ’u‚ğŒvZ‚µ•Ô‚·
+        /// </summary>
+        /// <param name="bulletNumber">‰½”­–Ú‚©</param>
+        /// <returns>ˆÊ’u</returns>
+        Vector2 SetAttackReserve(int bulletNumber);
     public:
-        AimShot();
+        AimShot():
+        isShotMove(false),isPlaceMove(false)
+        {}
+
         /// <summary>
         /// ‰Šú‰»ˆ—
         /// </summary>
         void ShotReserve();
-        void Update(Vector2 BossPosition,Vector2 playerPosition);
+
+        /// <summary>
+        /// ‰¡ˆê—ñ‚ÉˆÚ“®‚µ©‹@‘_‚¢
+        /// </summary>
+        /// <param name="startPosition">’e‚ÌUŒ‚‚ªn‚Ü‚é</param>
+        /// <param name="targetPosition">‘_‚¤ˆÊ’u</param>
+        void Update(Vector2 startPosition,Vector2 targetPosition);
+
+        Vector2 GetPosition     (int bulletNumber) { return position     [bulletNumber]; }
+        Vector2 GetShotVector   (int bulletNumber) { return shotVector   [bulletNumber]; }
+        float   GetAngle        (int bulletNumber) { return angle        [bulletNumber]; }
+        Vector2 GetReserveVector(int bulletNumber) { return reserveVector[bulletNumber]; }
+        bool    GetIsPlaceMove(){ return isPlaceMove; }
+        bool    GetIsShotMove() { return isShotMove;  }
     };
 
     class Induction :public BossManager
     {
     private:
         CF::Timer largeTimer;
+        CF::Timer attackCoolTimer;
+
         SimpleMath::Vector2 moveVector;
         SimpleMath::Vector2 oldPlayerPosition;
-        //“r’†‚Å’Ç”ö‚ğ‚â‚ßis‚é
         bool isMove;
         bool isPositionUpdate;
+        bool isLastAttack;
         //’e‚Ì‘å‚«‚³
         int volume;
     public:
@@ -77,20 +107,28 @@ namespace BossAttack
         /// <param name="playerPosition">’Ç”ö‘ÎÛ</param>
         void Update(Vector2 playerPosition);
 
+        Vector2 GetPosition()   { return position[0];  }
+        Vector2 GetMoveVector() { return moveVector;   }
+        float GetAngle()        { return angle[0];     }
+        bool GetIsMove()        { return isMove;       }
+        bool GetIsLastAttack()  { return isLastAttack; }
+        int  GetVolume()        { return volume;       }
     };
 
     class Frame :public BossManager
     {
     private:
         Vector2 move[FRAME_BULLET_MAX];
-        Vector2 screenMin;
-        Vector2 screenMax;
+        Vector2 xRange;
+        Vector2 yRange;
+
+        bool isVectorSwitch;
 
         /// <summary>
         /// w’è”ÍˆÍŠO‚Öo‚Ä‚¢‚½ê‡Œü‚©‚¤•ûŒü‚ğ•Ï‚¦Ø‚è•Ô‚·
         /// </summary>
         /// <param name="number">’e‚Ì”z—ñ‚Ì”š</param>
-        void OutRenge (int number);
+        void OutRange (int number);
         /// <summary>
         /// Œ»İ‚¢‚éêŠ‚É‰‚¶‚ÄŒü‚©‚¤•ûŒü‚ğ—^‚¦‚é
         /// </summary>
@@ -101,5 +139,10 @@ namespace BossAttack
         //‰ŠúˆÊ’u‚Ìİ’è
         void PositionSet();
         void Update();
+        void SetIsVectorSwitch(bool isFlag) { isVectorSwitch = isFlag; }
+
+        Vector2 GetPosition  (int bulletNumber) { return position[bulletNumber]; }
+        Vector2 GetMoveVector(int bulletNumber) { return move[bulletNumber];     }
+        float   GetAngle     (int bulletNumber) { return angle[bulletNumber];    }
     };
 }

@@ -17,32 +17,36 @@
 #pragma once
 #include "..\MainProject\Base\pch.h"
 #include "..\MainProject\Base\dxtk.h"
+#include"PlayerManager.h"
 #include"..\MainProject\Classes\Player\Movement\Move.h"
 #include"..\MainProject\Classes\Player\BulletAttack\BlueBullet.h"
 #include"..\MainProject\Classes\Player\PlayerColider\PlayerColider.h"
+#include"..\MainProject\Classes\collision\CollisionInfo\CollisionInfo.h"
 
 using namespace DirectX;
 
-class Player 
+class Player :public PlayerManager
 {
 private:
+
     SimpleMath::Vector2 playerPosition;
-    Move    move         ;
-    Bullet  attack       ;
-    Colider coliderSprite;
+    Move    move;
+    Bullet  attack;
+    Colider colliderSprite;
+
 public:
+    CollisionInfo playerCollisionInfo;
+    CollisionInfo attackCollisionInfo[PLAYER_ATTACK_MAX];
+
     SimpleMath::Vector2 GetPlayerPosition() { return playerPosition; }
 
     /// <summary>
-    /// プレイヤーの画像の情報を持ったsprite
+    /// プレイヤーの画像の情報を持ったSprite
     /// </summary>
     /// <param name="player">   プレイヤー画像</param>
     /// <param name="Attack">   攻撃画像      </param>
     /// <param name="collision">当たり判定画像</param>
-    void LoadAssets(DirectXTK::Sprite& player,
-                    DirectXTK::Sprite& Attack, 
-                    DirectXTK::Sprite& collision
-                    );
+    void LoadAssets(DirectXTK::Sprite& player, DirectXTK::Sprite& Attack, DirectXTK::Sprite& collision);
     void Initialize();
     void Update();
     /// <summary>
